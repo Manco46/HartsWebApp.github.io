@@ -1,0 +1,1 @@
+﻿@Ajax.ActionLink("CART", "Index", "UserCarts", "", New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "applicationBodyContainer", .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "navbar-brand"})<h4>ViewBag.TotalCartItems</h4>
