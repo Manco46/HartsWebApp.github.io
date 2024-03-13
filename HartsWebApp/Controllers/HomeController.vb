@@ -1,4 +1,6 @@
-﻿Public Class HomeController
+﻿
+<RequireHttps>
+Public Class HomeController
     Inherits System.Web.Mvc.Controller
 
     Private db As New ApplicationDbContext
@@ -18,7 +20,7 @@
     End Function
 
     Function Index() As ActionResult
-        Return View()
+        Return View(db.ServiceSections.ToList)
     End Function
 
     Function About() As ActionResult

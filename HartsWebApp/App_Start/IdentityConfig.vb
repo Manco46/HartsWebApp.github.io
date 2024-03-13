@@ -24,7 +24,7 @@ Public Class EmailService
         smtpWebMail.Host = "smtp.gmail.com" 'ConfigurationManager.AppSettings.Get("smtpHost")
         smtpWebMail.Port = "465" 'ConfigurationManager.AppSettings.Get("smtpHost")q
         smtpWebMail.EnableSsl = True
-        smtpWebMail.UseDefaultCredentials = False 'but false for production use
+        smtpWebMail.UseDefaultCredentials = True 'but false for production use
 
         Dim emailCredentials As New NetworkCredential
 

@@ -1,7 +1,9 @@
-﻿@ModelType IEnumerable(Of HartsWebApp.Service)
+﻿@ModelType IEnumerable(Of HartsWebApp.ServiceSection)
 @Code
     Dim counter = 0
     ViewData("Title") = "Home Page"
+    Dim db As New ApplicationDbContext
+    ''Dim serviceData As IEnumerable(Of Service)
 End Code
 
 <!--<div class="jumbotron">
@@ -10,59 +12,32 @@ End Code
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>-->
 
-<div class="container">
-    <h2>Panel Group</h2>
-    <div class="panel-group">
-        <div class="panel panel-success">
-            <div class="panel-heading">Panel Header</div>
-            <div class="panel-body">Panel Content</div>
 
+
+
+
+<div Class="w3-content w3-diplay-container">
+    @For Each item In Model
+        @<div Class="container">
+            <h2> @item.SectionName  </h2>
+            <div id="myCarousel-@item.SectionName" Class="carousel slide" data-ride="carousel">
+                @Html.Partial("_HomeView", db.Services.Where(Function(s) s.Section = item.SectionName).ToList)
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel-@item.SectionName" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel-@item.SectionName" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
         </div>
-    </div>
-</div>
+    Next
 
 
-
-<div id="carousel-container" class="carousel slide" data-ride="carousel">
-
-    <div class="carousel-inner"></div>
-    <a class="carousel-control-prev" href="#carousel-container" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carousel-container" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
 
 </div>
-<script>
-    $(document).ready(function () {
-
-         $.ajax({
-            url: '@Url.Action("MenCarouselData", "Home")',
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                var $carsouselInner = $('.carousel-inner');
-
-                $.each(data, function (index, item) {
-
-                    var carouselItem = '<div class="carousel-item">' +
-                        '<div Class="col-md-4" style="border:1px solid grey; background-color:darkslategray; color:white;" >' +
-                        '<img id="' + item.Picture + '" src="' + item.Picture + '" alt="' + item.Type + '" width="120" height="120" /><br />' +
-                        '<h4>' + item.Category + '</h4>' +
-                        '<h3>' + item.Type + '</h3>' +
-                        '<p>' + item.Description + '</p>' +
-                        '<label> Minutes: ' + item.Duration + '</label>' +
-                        '<h4>R ' + item.Fee + '</h4>' +
-                        '</div></div>';
-                    $carsouselInner.append(carouselItem);
-                });
-                $carsouselInner.children('.carousel-item').first().addClass('active');
-            }
-        });        
-</script>
 
 
 <div class="row">

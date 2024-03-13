@@ -77,9 +77,9 @@ End Code
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div id="applicationBodyContainer" class="container body-content">
 
-        <div id="applicationBodyContainer">
+        <div >
             @RenderBody()
         </div>
         <hr />

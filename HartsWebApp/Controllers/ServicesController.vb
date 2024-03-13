@@ -18,6 +18,16 @@ Namespace Controllers
         ' GET: Services
         Async Function Index(ByVal sectionName As String, ByVal errorMessage As String) As Task(Of ActionResult)
             ViewBag.ErrorMessage = errorMessage
+
+            Dim gender As New List(Of String)
+            gender.Add("MALE")
+            gender.Add("FEMALE")
+
+            Dim catergoryList = From s In db.Services Select s.Category.ToUpper
+
+            ViewBag.lstCategory = catergoryList
+            ViewBag.lstGender = gender
+
             Return View(Await db.Services.Where(Function(s) s.Section = sectionName).ToListAsync())
         End Function
 

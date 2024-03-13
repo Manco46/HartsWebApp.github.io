@@ -2,7 +2,7 @@
 @Code
     ViewData("Title") = "Index"
 End Code
-
+<br />
 <div>
     @Html.DropDownList("genderFilter", New SelectList(ViewBag.lstGender), "SELECT A GENDER")
     @Html.DropDownList("catergory", New SelectList(ViewBag.lstCategory), "SELECT A CATEGORY")

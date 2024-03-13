@@ -182,7 +182,7 @@ Public Class AccountController
                 Else
                     Await UserManager.AddToRoleAsync(user.Id, "CLIENT")
                 End If
-                Await SignInManager.SignInAsync(user, isPersistent:=True, rememberBrowser:=False)
+                ''Await SignInManager.SignInAsync(user, isPersistent:=True, rememberBrowser:=False)
 
                 ' For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 ' Send an email with this link
