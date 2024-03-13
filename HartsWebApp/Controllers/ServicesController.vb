@@ -10,15 +10,13 @@ Imports System.Web.Mvc
 Imports HartsWebApp
 
 Namespace Controllers
+    <Authorize(Roles:="ADMIN")>
     Public Class ServicesController
         Inherits System.Web.Mvc.Controller
 
         Private db As New ApplicationDbContext
 
-        ' GET: Services
-        Async Function Index(ByVal sectionName As String, ByVal errorMessage As String) As Task(Of ActionResult)
-            ViewBag.ErrorMessage = errorMessage
-
+        Private Sub ViewBagInitialisation()
             Dim gender As New List(Of String)
             gender.Add("MALE")
             gender.Add("FEMALE")
@@ -27,6 +25,20 @@ Namespace Controllers
 
             ViewBag.lstCategory = catergoryList
             ViewBag.lstGender = gender
+        End Sub
+
+        ' GET: Services
+        <AllowAnonymous>
+        Async Function Index(ByVal sectionName As String, ByVal errorMessage As String) As Task(Of ActionResult)
+
+            If User.IsInRole("ADMIN") Then
+                ViewBagInitialisation()
+                Return View(Await db.Services.ToListAsync())
+            End If
+
+            ViewBag.ErrorMessage = errorMessage
+
+            ViewBagInitialisation()
 
             Return View(Await db.Services.Where(Function(s) s.Section = sectionName).ToListAsync())
         End Function

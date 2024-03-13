@@ -1,8 +1,15 @@
 ﻿@ModelType IEnumerable(Of HartsWebApp.Service)
 @Code
-    ViewData("Title") = "Index"
+    ViewData("Title") = "Products & Services"
+
 End Code
 <br />
+
+@If User.IsInRole("ADMIN") Then
+    @Ajax.ActionLink("Create A New Service", "Create", "Services", "", New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "applicationBodyContainer", .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "glyphicon glyphicon-pencil"})
+
+End If
+
 <div>
     @Html.DropDownList("genderFilter", New SelectList(ViewBag.lstGender), "SELECT A GENDER")
     @Html.DropDownList("catergory", New SelectList(ViewBag.lstCategory), "SELECT A CATEGORY")
@@ -22,8 +29,14 @@ End Code
                     <h5>@item.Category</h5>
                     <p>@item.Description</p>
                     <h4>R @item.Fee</h4>
-                    @Html.ActionLink("ADD TO CART", "NewAddToCart", "UserCarts", New With {.VALUE = item.ID, .sectionName = item.Section}, htmlAttributes:=New With {.class = "btnAddCart btn btn-primary btn-block"})
-                    
+                    @If User.IsInRole("ADMIN") Then
+                        @Ajax.ActionLink("Edit", "Edit", "Services", New With {.id = item.ID}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "applicationBodyContainer", .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "glyphicon glyphicon-edit"})@<br />
+                        @Ajax.ActionLink("Delete", "Delete", "Services", New With {.id = item.ID}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "applicationBodyContainer", .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "glyphicon glyphicon-trash"})
+                    Else
+                        @Html.ActionLink("ADD TO CART", "NewAddToCart", "UserCarts", New With {.VALUE = item.ID, .sectionName = item.Section}, htmlAttributes:=New With {.class = "btnAddCart btn btn-primary btn-block"})
+
+                    End If
+
                 </div>
             </div>
         </div>

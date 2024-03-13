@@ -5,42 +5,63 @@
         @Html.AntiForgeryToken()
         @<ul class="nav navbar-nav navbar-right">
 
-            <li id="btnCartLink">
-                <a href="@Url.Action("Index", "UserCarts")">
-                    <span class="glyphicon glyphicon-shopping-cart"></span>
-                    Shopping Cart
-                    <span id="noItemsOfCart" class="badge"></span>
-                </a>             
-            </li>
+             <li id="btnCart">
+                 <a href="@Url.Action("Index", "UserCarts")">
+                     <span class="glyphicon glyphicon-shopping-cart"></span>
+                     Shopping Cart
+                     <span id="noItemsOfCart" class="badge"></span>
+                 </a>
+             </li>
+
+             <li id="btnCart">
+                 <a href="@Url.Action("Index", "Appointments")">
+                     <span class="glyphicon glyphicon-calendar"></span>
+                     Appointments
+                     <span id="noItemsOfCart" class="badge"></span>
+                 </a>
+             </li>
+
+            @If User.IsInRole("ADMIN") Then
+                @<li>
+                    <a href="@Url.Action("Index", "Services")">Services</a>
+                </li>
+                @<li>
+                    <a href="@Url.Action("Index", "Role")">Roles</a>
+                </li>
+                @<li>
+                    <a href="@Url.Action("Index", "ServiceSections")">Service Sections</a>
+                </li>
+            End If    
+
             <li>
                 <a href="@Url.Action("Index", "Manage", routeValues:=Nothing)" title="Manage">
                     Settings
-                    <span class="glyphicon glyphicon-cog"></span>
+                    <span Class="glyphicon glyphicon-cog"></span>
                 </a>
             </li>
-            <li> 
+            <li>
                 <a href="javascript:document.getElementById('logoutForm').submit()">
                     Sign Out
-                    <span class="glyphicon glyphicon glyphicon-log-out"></span>
+                    <span Class="glyphicon glyphicon glyphicon-log-out"></span>
                 </a>
             </li>
-        </ul>   
+        </ul>
     End Using
 Else
-    @<ul class="nav navbar-nav navbar-right">         
-         <li>
-             <a href="@Url.Action("Register", "Account", routeValues:=Nothing)">
+    @<ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="@Url.Action("Register", "Account", routeValues:=Nothing)">
                 Sign Up
                 <span class="glyphicon glyphicon-list-alt"></span>
-             </a>
-         </li>
-         <li>
-             <a href="@Url.Action("Login", "Account", routeValues:=Nothing)">
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("Login", "Account", routeValues:=Nothing)">
                 Sign In
                 <span class="glyphicon glyphicon-log-in"></span>
-             </a>
-             
-         </li>
+            </a>
+
+        </li>
     </ul>
 End If
 

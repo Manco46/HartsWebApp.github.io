@@ -19,8 +19,11 @@ End Code
 <div class="carousel-inner">
     @For Each slideItem In Model
         @<div class="item @IIf(slideCounter = 0, "active", "")">
-            <img src="@slideItem.Picture" alt="@slideItem.Type" style="width:100%">
-            <h2>@slideItem.Type</h2>
+            <img src="@slideItem.Picture" alt="@slideItem.Type" style="width:100%; height:10%">
+            <div class="carousel-caption">
+                <h2>@slideItem.Type</h2>
+                <p>@slideItem.Description</p>
+            </div>            
         </div>
         slideCounter += 1
     Next
