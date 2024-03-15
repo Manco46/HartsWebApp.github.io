@@ -3,23 +3,30 @@
 
     ViewData("Title") = "Harts Cart"
 End Code
+@Using Ajax.BeginForm("Create", "Appointments", New AjaxOptions With {.HttpMethod = "POST"})
 
-<div class="container">
-    <div class="">
-        @For Each item In Model
-            @<div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            @Ajax.ActionLink(item.SectionName, "GetCartSectionItems", "UserCarts", New With {.sectionName = item.SectionName}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "bodyContent-" + item.SectionName, .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "w3-bar-item w3-button"})                            
-                        </h3>
-                    </div>                    
-                    <div id="bodyContent-@item.SectionName" class="panel-body">BJGG,GGGGGGGGGGGYUFUYFUTTTTTTTTTTTTTT</div>                                    
+
+    @<div class="container">
+        <div Class="">
+            @For Each item In Model
+                @<div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                @Ajax.ActionLink(item.SectionName, "GetCartSectionItems", "UserCarts", New With {.sectionName = item.SectionName}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "bodyContent-" + item.SectionName, .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "w3-bar-item w3-button"})                            
+                            </h3>
+                        </div>                    
+                        <div id="bodyContent-@item.SectionName" class="panel-body"></div>                                    
+                    </div>
                 </div>
-            </div>
-        Next
+            Next
+        </div>
     </div>
-</div>
+End Using
+
+
+
+
 
 <!--<div id="testing"></div>-->
 

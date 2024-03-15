@@ -57,6 +57,7 @@ Namespace Controllers
 
         ' GET: Services/Create
         Function Create() As ActionResult
+            ViewBag.Section = From sect In db.ServiceSections Select sect.SectionName
             Return View()
         End Function
 
@@ -71,6 +72,7 @@ Namespace Controllers
                 Await db.SaveChangesAsync()
                 Return RedirectToAction("Index")
             End If
+            ViewBag.Section = From sect In db.ServiceSections Select sect.SectionName
             Return View(service)
         End Function
 
@@ -83,6 +85,7 @@ Namespace Controllers
             If IsNothing(service) Then
                 Return HttpNotFound()
             End If
+            ViewBag.Section = From sect In db.ServiceSections Select sect.SectionName
             Return View(service)
         End Function
 
@@ -97,6 +100,7 @@ Namespace Controllers
                 Await db.SaveChangesAsync()
                 Return RedirectToAction("Index")
             End If
+            ViewBag.Section = From sect In db.ServiceSections Select sect.SectionName
             Return View(service)
         End Function
 

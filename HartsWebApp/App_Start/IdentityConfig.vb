@@ -29,7 +29,7 @@ Public Class EmailService
         Dim emailCredentials As New NetworkCredential
 
         emailCredentials.UserName = "wojichulumanco@gmail.com" 'ConfigurationManager.AppSettings.Get("smtpHost")
-        emailCredentials.Password = "Luukchulu@0210" 'ConfigurationManager.AppSettings.Get("smtpHost")
+        emailCredentials.Password = "" 'ConfigurationManager.AppSettings.Get("smtpHost")
 
         smtpWebMail.Credentials = emailCredentials
 

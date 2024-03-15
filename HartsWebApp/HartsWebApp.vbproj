@@ -392,6 +392,7 @@
     <Content Include="Views\ServiceSections\Edit.vbhtml" />
     <Content Include="Views\ServiceSections\Index.vbhtml" />
     <Content Include="Views\Shared\_HomeView.vbhtml" />
+    <Content Include="Views\Shared\_AppointmentServiceView.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

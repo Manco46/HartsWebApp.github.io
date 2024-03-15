@@ -1,5 +1,5 @@
 ﻿@Code
-    ViewData("Title") = "Harts Salon Cart"
+    ViewData("Title") = "Harts Salon"
     Dim db As New ApplicationDbContext
     Dim items = db.ServiceSections.ToList
 End Code

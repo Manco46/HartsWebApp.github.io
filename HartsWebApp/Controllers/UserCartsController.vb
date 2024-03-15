@@ -56,26 +56,8 @@ Namespace Controllers
             Return View(userCart)
         End Function
 
-        ' GET: UserCarts/Create
-        Function Create() As ActionResult
-            ViewBag.UserID = New SelectList(db.Users, "Id", "FirstName")
-            Return View()
-        End Function
 
-        ' POST: UserCarts/Create
-        'To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        <HttpPost()>
-        <ValidateAntiForgeryToken()>
-        Async Function Create(<Bind(Include:="ID,CartID,UserID,ServiceID")> ByVal userCart As UserCart) As Task(Of ActionResult)
-            If ModelState.IsValid Then
-                db.UserCarts.Add(userCart)
-                Await db.SaveChangesAsync()
-                Return RedirectToAction("Index")
-            End If
-            ViewBag.UserID = New SelectList(db.Users, "Id", "FirstName", userCart.UserID)
-            Return View(userCart)
-        End Function
+
 
         ' GET: UserCarts/Edit/5
         Async Function Edit(ByVal id As String) As Task(Of ActionResult)
