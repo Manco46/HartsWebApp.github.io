@@ -6,36 +6,6 @@ Public Class Appointment
 
     Public Property UserID As String
 
-    <Display(Name:="Hair Service")>
-    Public Property HairServiceID As String
-
-    <Display(Name:="Hair Add-On's")>
-    Public Property HairServiceAddOnID As String
-
-
-
-    <Display(Name:="Is Dye For Hair Required")>
-    Public Property Is_Dye As Boolean
-
-    <Display(Name:="Colour of Dye"), StringLength(30, ErrorMessage:="The colour cannot be more than 30 characters")>
-    Public Property Colour As String
-
-
-
-    <Display(Name:="Nails Service")>
-    Public Property NailsServiceID As String
-
-    <Display(Name:="Nails Add-On's")>
-    Public Property NailsServiceAddOnID As String
-
-    <Display(Name:="Make-Up Service")>
-    Public Property MakeUpServiceID As String
-
-    <Display(Name:="Make-Up Add-On's")>
-    Public Property MakeUpServiceAddOnID As String
-
-
-
     <Required(ErrorMessage:="This field is required"), Display(Name:="Date of Appointment"), DataType(DataType.Date), DisplayFormat(DataFormatString:="{0:dd/MM/yyyy}", ApplyFormatInEditMode:=True)>
     Public Property AppoDate As DateTime
 
@@ -51,9 +21,6 @@ Public Class Appointment
     <Display(Name:="Appointment Fee"), DataType(DataType.Currency)>
     Public Property Fee As Decimal
 
-
-
-
     <Display(Name:="Employee In Service"), DataType(DataType.Currency), StringLength(20, ErrorMessage:="The employee id cannot be more than 20 characters")>
     Public Property Employee_ID As String
 
@@ -61,6 +28,8 @@ Public Class Appointment
     Public Property Status As String
 
     Public Property myUser As ApplicationUser
+
+    Public Property appointmentServices As ICollection(Of AppointmentService)
 
 End Class
 

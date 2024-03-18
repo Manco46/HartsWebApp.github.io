@@ -24,12 +24,13 @@ Namespace Controllers
             Return View(Await db.ServiceSections.ToListAsync)
         End Function
 
-        Async Function GetCartSectionItems(ByVal sectionName As String) As Task(Of PartialViewResult)
+        Async Function GetCartSectionItems(ByVal sectionID As String) As Task(Of PartialViewResult)
 
             If User.Identity.IsAuthenticated Then
                 Dim userid As String = User.Identity.GetUserId
                 Dim filterUser = db.UserCarts.Where(Function(c) c.UserID = userid)
-                Dim groupQuery = filterUser.GroupJoin(db.Services.Where(Function(fs) fs.Section = sectionName),
+                'fix mistake must be id not name
+                Dim groupQuery = filterUser.GroupJoin(db.Services.Where(Function(fs) fs.SectionID = sectionID),
                                                       Function(c) c.ServiceID,
                                                       Function(s) s.ID,
                                                       Function(c, services) New With {

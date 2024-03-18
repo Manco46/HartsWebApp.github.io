@@ -5,7 +5,7 @@ Public Class Service
     Public Property ID As String
 
     <Required(ErrorMessage:="This field is required"), Display(Name:="Which Section")>
-    Public Property Section As String
+    Public Property SectionID As String
 
     <Required(ErrorMessage:="This field is required"), Display(Name:="What Sexuality")>
     Public Property Sexuality As String
@@ -29,5 +29,7 @@ Public Class Service
 
     <DataType(DataType.ImageUrl, ErrorMessage:="This should be a valid image or pictuer url."), Display(Name:="Link of Picture")>
     Public Property Picture As String
+
+    Public Property myServiceSection As ServiceSection
 
 End Class

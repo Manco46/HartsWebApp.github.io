@@ -20,7 +20,7 @@ Namespace Controllers
             Return View(Await db.ServiceSections.ToListAsync())
         End Function
 
-        ' GET: ServiceSections/Details/5
+        '' GET: ServiceSections/Details/5
         Async Function Details(ByVal id As String) As Task(Of ActionResult)
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)

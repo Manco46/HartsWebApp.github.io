@@ -32,6 +32,7 @@ Public Class ApplicationDbContext
     Public Property Services As System.Data.Entity.DbSet(Of Service)
     Public Property UserCarts As System.Data.Entity.DbSet(Of UserCart)
     Public Property ServiceSections As System.Data.Entity.DbSet(Of ServiceSection)
+    Public Property AppointmentServices As System.Data.Entity.DbSet(Of AppointmentService)
 
 
     Public Sub New()
@@ -50,6 +51,17 @@ Public Class ApplicationDbContext
             .HasMany(Function(u) u.UserCarts) _
             .WithRequired(Function(a) a.myUser) _
             .HasForeignKey(Function(a) a.UserID)
+
+        modelBuilder.Entity(Of Appointment)() _
+           .HasMany(Function(u) u.appointmentServices) _
+           .WithRequired(Function(a) a.Appointments) _
+           .HasForeignKey(Function(a) a.AppointmentID)
+
+        modelBuilder.Entity(Of ServiceSection)() _
+          .HasMany(Function(u) u.Services) _
+          .WithRequired(Function(a) a.myServiceSection) _
+          .HasForeignKey(Function(a) a.SectionID)
+
 
     End Sub
 

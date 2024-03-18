@@ -241,9 +241,22 @@
       <DependentUpon>202402181636435_AddingServiceSectionModifyingServiceTable.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202402181636435_AddingServiceSectionModifyingServiceTable.vb" />
+    <Compile Include="Migrations\202403181128264_HavingMultipleServicesInOneAppointmentMethod.Designer.vb">
+      <DependentUpon>202403181128264_HavingMultipleServicesInOneAppointmentMethod.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202403181128264_HavingMultipleServicesInOneAppointmentMethod.vb" />
+    <Compile Include="Migrations\202403181202169_DeletingColumnsForReconstructionInServiceSectionTable.Designer.vb">
+      <DependentUpon>202403181202169_DeletingColumnsForReconstructionInServiceSectionTable.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202403181202169_DeletingColumnsForReconstructionInServiceSectionTable.vb" />
+    <Compile Include="Migrations\202403181209147_CreatingRelationshipBetweenServiceSectionAndService.Designer.vb">
+      <DependentUpon>202403181209147_CreatingRelationshipBetweenServiceSectionAndService.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202403181209147_CreatingRelationshipBetweenServiceSectionAndService.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\AccountViewModels.vb" />
     <Compile Include="Models\Appointment.vb" />
+    <Compile Include="Models\AppointmentService.vb" />
     <Compile Include="Models\CartIndexViewModel.vb" />
     <Compile Include="Models\IdentityModels.vb" />
     <Compile Include="Models\ManageViewModels.vb" />
@@ -293,6 +306,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202402181636435_AddingServiceSectionModifyingServiceTable.resx">
       <DependentUpon>202402181636435_AddingServiceSectionModifyingServiceTable.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403181128264_HavingMultipleServicesInOneAppointmentMethod.resx">
+      <DependentUpon>202403181128264_HavingMultipleServicesInOneAppointmentMethod.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403181202169_DeletingColumnsForReconstructionInServiceSectionTable.resx">
+      <DependentUpon>202403181202169_DeletingColumnsForReconstructionInServiceSectionTable.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403181209147_CreatingRelationshipBetweenServiceSectionAndService.resx">
+      <DependentUpon>202403181209147_CreatingRelationshipBetweenServiceSectionAndService.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

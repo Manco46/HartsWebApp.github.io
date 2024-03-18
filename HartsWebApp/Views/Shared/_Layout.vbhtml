@@ -64,7 +64,7 @@ End Code
                         <ul class="dropdown-menu">
                             @for Each i In items
                                 @<li>
-                                    @Ajax.ActionLink(i.SectionName, "Index", "Services", New With {.sectionName = i.SectionName}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "applicationBodyContainer", .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "w3-bar-item w3-button"})
+                                    @Ajax.ActionLink(i.SectionName, "Index", "Services", New With {.sectionID = i.ID}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "applicationBodyContainer", .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "w3-bar-item w3-button"})
                                 </li>
                             Next
                         </ul>

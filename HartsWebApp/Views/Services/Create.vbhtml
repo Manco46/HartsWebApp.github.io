@@ -20,10 +20,10 @@ End Code
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(Function(model) model.Section, htmlAttributes:=New With {.class = "control-label col-md-2"})
+            @Html.LabelFor(Function(model) model.SectionID, htmlAttributes:=New With {.class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.DropDownListFor(Function(model) model.Section, New SelectList(ViewBag.Section), "SELECT A SECTION", New With {.class = "form-control", .placeholder = "Gender", .type = "text"})
-                @Html.ValidationMessageFor(Function(model) model.Section, "", New With {.class = "text-danger"})
+                @Html.DropDownListFor(Function(model) model.SectionID, New SelectList(ViewBag.Section), "SELECT A SECTION", New With {.class = "form-control", .placeholder = "Gender", .type = "text"})
+                @Html.ValidationMessageFor(Function(model) model.SectionID, "", New With {.class = "text-danger"})
             </div>
         </div>
 

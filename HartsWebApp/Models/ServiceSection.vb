@@ -11,4 +11,6 @@ Public Class ServiceSection
     <Required(ErrorMessage:="This field is required"), Display(Name:="Enter Section Description")>
     Public Property SectionDescription As String
 
+    Public Property Services As ICollection(Of Service)
+
 End Class

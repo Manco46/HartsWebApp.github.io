@@ -29,7 +29,7 @@ Namespace Controllers
 
         ' GET: Services
         <AllowAnonymous>
-        Async Function Index(ByVal sectionName As String, ByVal errorMessage As String) As Task(Of ActionResult)
+        Async Function Index(ByVal sectionID As String, ByVal errorMessage As String) As Task(Of ActionResult)
 
             If User.IsInRole("ADMIN") Then
                 ViewBagInitialisation()
@@ -39,8 +39,8 @@ Namespace Controllers
             ViewBag.ErrorMessage = errorMessage
 
             ViewBagInitialisation()
-
-            Return View(Await db.Services.Where(Function(s) s.Section = sectionName).ToListAsync())
+            'fix mistake must be id not name
+            Return View(Await db.Services.Where(Function(s) s.SectionID = sectionID).ToListAsync())
         End Function
 
         ' GET: Services/Details/5
@@ -57,7 +57,11 @@ Namespace Controllers
 
         ' GET: Services/Create
         Function Create() As ActionResult
-            ViewBag.Section = From sect In db.ServiceSections Select sect.SectionName
+
+            Dim data = db.ServiceSections.Select(Function(s) New With {.Text = s.SectionName, .Value = s.ID}).ToList()
+
+            ViewBag.Section = data
+            ' From sect In db.ServiceSections Select sect.SectionName
             Return View()
         End Function
 
@@ -72,7 +76,9 @@ Namespace Controllers
                 Await db.SaveChangesAsync()
                 Return RedirectToAction("Index")
             End If
-            ViewBag.Section = From sect In db.ServiceSections Select sect.SectionName
+
+            ViewBag.Section = db.ServiceSections.Select(Function(s) New With {.ID = s.ID, .Name = s.SectionName}).ToList()
+
             Return View(service)
         End Function
 
