@@ -25,11 +25,15 @@
                 @<li>
                     <a href="@Url.Action("Index", "Services")">Services</a>
                 </li>
-                @<li>
-                    <a href="@Url.Action("Index", "Role")">Roles</a>
-                </li>
+
                 @<li>
                     <a href="@Url.Action("Index", "ServiceSections")">Service Sections</a>
+                </li>
+                 @<li>
+                    <a href="@Url.Action("Index", "Account")">Employees</a>
+                </li>
+                @<li>
+                    <a href="@Url.Action("Index", "Role")">Roles</a>
                 </li>
             End If    
 

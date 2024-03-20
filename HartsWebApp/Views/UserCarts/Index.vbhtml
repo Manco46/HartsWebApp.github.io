@@ -2,6 +2,7 @@
 @Code
 
     ViewData("Title") = "Harts Cart"
+    Dim db As New ApplicationDbContext
 End Code
 @Using Ajax.BeginForm("Create", "Appointments", New AjaxOptions With {.HttpMethod = "POST"})
 
@@ -13,10 +14,18 @@ End Code
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">
+                              
                                 @Ajax.ActionLink(item.SectionName, "GetCartSectionItems", "UserCarts", New With {.sectionID = item.ID}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "bodyContent-" + item.SectionName, .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "w3-bar-item w3-button"})                            
                             </h3>
                         </div>                    
-                        <div id="bodyContent-@item.SectionName" class="panel-body"></div>                                    
+                        <div id="bodyContent-@item.SectionName" class="panel-body form-group">
+                            @Html.Partial("_CartServices", db.Services.Where(Function(s) s.SectionID = item.ID And s.Add_On = False))      
+                            <hr />
+                            <div>
+                                <h2>ADD-ONS</h2>
+                                @Html.Partial("_CartServices", db.Services.Where(Function(s) s.SectionID = item.ID And s.Add_On = True))
+                            </div>                           
+                        </div>                                    
                     </div>
                 </div>
             Next

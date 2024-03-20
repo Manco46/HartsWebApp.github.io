@@ -42,7 +42,10 @@ Namespace Controllers
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
-        Async Function Create(<Bind(Include:="ID,SectionName,SectionDescription")> ByVal serviceSection As ServiceSection) As Task(Of ActionResult)
+        Async Function Create(<Bind(Include:="SectionName,SectionDescription")> ByVal serviceSection As ServiceSection) As Task(Of ActionResult)
+
+            serviceSection.ID = "serviceSection-" + Guid.NewGuid().ToString("X")
+
             If ModelState.IsValid Then
                 db.ServiceSections.Add(serviceSection)
                 Await db.SaveChangesAsync()

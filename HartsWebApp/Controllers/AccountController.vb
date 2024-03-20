@@ -46,6 +46,15 @@ Public Class AccountController
         End Set
     End Property
 
+    'Create a model for the admin and owner to see/edit/remvove all the employee and admin users
+    <Authorize(Roles:="ADMIN")>
+    Public Function Index(returnUrl As String) As ActionResult
+        ViewData!ReturnUrl = returnUrl
+        Return View(db.Users.ToList)
+    End Function
+
+
+
     '
     ' GET: /Account/Login
     <AllowAnonymous>

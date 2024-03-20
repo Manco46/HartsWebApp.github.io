@@ -118,13 +118,13 @@ Namespace Controllers
             End If
             MyBase.Dispose(disposing)
         End Sub
-        Public Async Function NewAddToCart(ByVal VALUE As String, ByVal sectionName As String) As Task(Of ActionResult)
+        Public Async Function NewAddToCart(ByVal VALUE As String, ByVal sectionID As String) As Task(Of ActionResult)
 
             If User.Identity.IsAuthenticated Then
 
                 If Await db.UserCarts.AnyAsync(Function(ca) ca.ServiceID = VALUE) Then
 
-                    Return RedirectToAction("Index", "Services", New With {.sectionName = sectionName, .errorMessage = "The Item You Selected Already Exist In Your Cart Records"})
+                    Return RedirectToAction("Index", "Services", New With {.sectionID = sectionID, .errorMessage = "The Item You Selected Already Exist In Your Cart Records"})
 
                 Else
 
@@ -146,7 +146,7 @@ Namespace Controllers
 
                             db.UserCarts.Add(model)
                             Await db.SaveChangesAsync()
-                            Return RedirectToAction("Index", "Services", New With {.sectionName = sectionName})
+                            Return RedirectToAction("Index", "Services", New With {.sectionID = sectionID})
                         End If
 
                     Else
@@ -162,12 +162,12 @@ Namespace Controllers
 
                             db.UserCarts.Add(model)
                             Await db.SaveChangesAsync()
-                            Return RedirectToAction("Index", "Services", New With {.sectionName = sectionName})
+                            Return RedirectToAction("Index", "Services", New With {.sectionID = sectionID})
                         End If
                     End If
                 End If
             End If
-            Return RedirectToAction("Index", "Services", New With {.sectionName = sectionName})
+            Return RedirectToAction("Index", "Services", New With {.sectionID = sectionID})
         End Function
 
         Public Async Function AddToCart(ByVal VALUE As String) As Task(Of JsonResult)

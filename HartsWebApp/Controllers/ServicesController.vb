@@ -57,27 +57,43 @@ Namespace Controllers
 
         ' GET: Services/Create
         Function Create() As ActionResult
+            getViewbagData()
 
-            Dim data = db.ServiceSections.Select(Function(s) New With {.Text = s.SectionName, .Value = s.ID}).ToList()
-
-            ViewBag.Section = data
-            ' From sect In db.ServiceSections Select sect.SectionName
             Return View()
         End Function
+
+        Private Sub getViewbagData()
+            Dim getServiceSections = db.ServiceSections.ToList()
+            Dim serviceDisplayData As New List(Of SelectListItem)
+
+            For Each item In getServiceSections
+                serviceDisplayData.Add(New SelectListItem With {.Text = item.SectionName, .Value = item.ID})
+            Next
+
+            ViewBag.Section = serviceDisplayData
+
+            Dim lstGender As New List(Of String)
+            lstGender.Add("MALE")
+            lstGender.Add("FEMALE")
+            ViewBag.Gender = lstGender
+        End Sub
 
         ' POST: Services/Create
         'To protect from overposting attacks, enable the specific properties you want to bind to, for 
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
-        Async Function Create(<Bind(Include:="ID,Section,Sexuality,Category,Type,Description,Duration,Fee,Picture")> ByVal service As Service) As Task(Of ActionResult)
+        Async Function Create(<Bind(Include:="SectionID,Sexuality,Add_On,Category,Type,Description,Duration,Fee,Picture")> ByVal service As Service) As Task(Of ActionResult)
+
+            service.ID = "service-" + Guid.NewGuid().ToString("X")
+
             If ModelState.IsValid Then
                 db.Services.Add(service)
                 Await db.SaveChangesAsync()
                 Return RedirectToAction("Index")
             End If
 
-            ViewBag.Section = db.ServiceSections.Select(Function(s) New With {.ID = s.ID, .Name = s.SectionName}).ToList()
+            getViewbagData()
 
             Return View(service)
         End Function
@@ -91,7 +107,7 @@ Namespace Controllers
             If IsNothing(service) Then
                 Return HttpNotFound()
             End If
-            ViewBag.Section = From sect In db.ServiceSections Select sect.SectionName
+            getViewbagData()
             Return View(service)
         End Function
 
@@ -106,7 +122,9 @@ Namespace Controllers
                 Await db.SaveChangesAsync()
                 Return RedirectToAction("Index")
             End If
-            ViewBag.Section = From sect In db.ServiceSections Select sect.SectionName
+
+            getViewbagData()
+
             Return View(service)
         End Function
 

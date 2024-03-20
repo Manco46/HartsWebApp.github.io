@@ -11,20 +11,13 @@ End Code
     @<div class="form-horizontal">
         <h4>ServiceSection</h4>
         <hr />
-        @Html.ValidationSummary(True, "", New With { .class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(Function(model) model.ID, htmlAttributes:= New With { .class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(Function(model) model.ID, New With { .htmlAttributes = New With { .class = "form-control" } })
-                @Html.ValidationMessageFor(Function(model) model.ID, "", New With { .class = "text-danger" })
-            </div>
-        </div>
+        @Html.ValidationSummary(True, "", New With { .class = "text-danger" })       
 
         <div class="form-group">
-            @Html.LabelFor(Function(model) model.SectionName, htmlAttributes:= New With { .class = "control-label col-md-2" })
+            @Html.LabelFor(Function(model) model.SectionName, htmlAttributes:=New With {.class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(Function(model) model.SectionName, New With { .htmlAttributes = New With { .class = "form-control" } })
-                @Html.ValidationMessageFor(Function(model) model.SectionName, "", New With { .class = "text-danger" })
+                @Html.EditorFor(Function(model) model.SectionName, New With {.htmlAttributes = New With {.class = "form-control"}})
+                @Html.ValidationMessageFor(Function(model) model.SectionName, "", New With {.class = "text-danger"})
             </div>
         </div>
 

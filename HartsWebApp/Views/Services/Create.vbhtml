@@ -12,26 +12,28 @@ End Code
         <h4>Service</h4>
         <hr />
         @Html.ValidationSummary(True, "", New With { .class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(Function(model) model.ID, htmlAttributes:= New With { .class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(Function(model) model.ID, New With { .htmlAttributes = New With { .class = "form-control" } })
-                @Html.ValidationMessageFor(Function(model) model.ID, "", New With {.class = "text-danger"})
-            </div>
-        </div>
+      
         <div class="form-group">
             @Html.LabelFor(Function(model) model.SectionID, htmlAttributes:=New With {.class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.DropDownListFor(Function(model) model.SectionID, New SelectList(ViewBag.Section), "SELECT A SECTION", New With {.class = "form-control", .placeholder = "Gender", .type = "text"})
+                @Html.DropDownListFor(Function(model) model.SectionID, New SelectList(ViewBag.Section, "Value", "Text", ""), "SELECT A SECTION", New With {.Class = "form-control"})
                 @Html.ValidationMessageFor(Function(model) model.SectionID, "", New With {.class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(Function(model) model.Sexuality, htmlAttributes:= New With { .class = "control-label col-md-2" })
+            @Html.LabelFor(Function(model) model.Sexuality, htmlAttributes:=New With {.class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(Function(model) model.Sexuality, New With { .htmlAttributes = New With { .class = "form-control" } })
-                @Html.ValidationMessageFor(Function(model) model.Sexuality, "", New With { .class = "text-danger" })
+                @Html.DropDownListFor(Function(model) model.Sexuality, New SelectList(ViewBag.Gender), "SELECT THE GENDER", New With {.class = "form-control"})
+                @Html.ValidationMessageFor(Function(model) model.Sexuality, "", New With {.class = "text-danger"})
+            </div>
+        </div>
+
+         <div class="form-group">
+            @Html.LabelFor(Function(model) model.Add_On, htmlAttributes:=New With {.class = "control-label col-md-2"})
+            <div class="col-md-10">                
+                @Html.CheckBoxFor(Function(model) model.Add_On, New With {.htmlAttributes = New With {.class = "form-control"}})
+                @Html.ValidationMessageFor(Function(model) model.Add_On, "", New With {.class = "text-danger"})
             </div>
         </div>
 

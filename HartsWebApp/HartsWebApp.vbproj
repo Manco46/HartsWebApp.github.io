@@ -253,6 +253,12 @@
       <DependentUpon>202403181209147_CreatingRelationshipBetweenServiceSectionAndService.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202403181209147_CreatingRelationshipBetweenServiceSectionAndService.vb" />
+    <Compile Include="Migrations\202403201056134_InsertingTheAdd-OnTable\.Designer.vb" />
+    <Compile Include="Migrations\202403201056134_InsertingTheAdd-OnTable\.vb" />
+    <Compile Include="Migrations\202403201123196_EditingTheDataTypeOfAddOnToBoolean.Designer.vb">
+      <DependentUpon>202403201123196_EditingTheDataTypeOfAddOnToBoolean.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202403201123196_EditingTheDataTypeOfAddOnToBoolean.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\AccountViewModels.vb" />
     <Compile Include="Models\Appointment.vb" />
@@ -315,6 +321,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202403181209147_CreatingRelationshipBetweenServiceSectionAndService.resx">
       <DependentUpon>202403181209147_CreatingRelationshipBetweenServiceSectionAndService.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403201056134_InsertingTheAdd-OnTable\.resx">
+      <DependentUpon>.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403201123196_EditingTheDataTypeOfAddOnToBoolean.resx">
+      <DependentUpon>202403201123196_EditingTheDataTypeOfAddOnToBoolean.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -415,6 +427,8 @@
     <Content Include="Views\ServiceSections\Index.vbhtml" />
     <Content Include="Views\Shared\_HomeView.vbhtml" />
     <Content Include="Views\Shared\_AppointmentServiceView.vbhtml" />
+    <Content Include="Views\Shared\_CartServices.vbhtml" />
+    <Content Include="Views\Account\Index.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

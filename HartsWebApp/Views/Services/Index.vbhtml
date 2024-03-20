@@ -21,8 +21,8 @@ End If
 <div class="row">
     @For Each item In Model
         @<div class="col-md-4">
-            <div class="thumbnail" for="ServiceID-@item.Section">
-                <input type="radio" class="btn-check" name="ServiceID-@item.Section" value="@item.ID" id="ServiceID-@item.Section" autocomplete="off" />
+            <div class="thumbnail" for="ServiceID-@item.SectionID">
+                <input type="radio" class="btn-check" name="ServiceID-@item.SectionID" value="@item.ID" id="ServiceID-@item.SectionID" autocomplete="off" />
                 <img class="img-responsive img-rounded" src="" alt="@item.Type - image not available" />
                 <div class="caption">
                     <h3>@item.Type</h3>
@@ -32,8 +32,9 @@ End If
                     @If User.IsInRole("ADMIN") Then
                         @Ajax.ActionLink("Edit", "Edit", "Services", New With {.id = item.ID}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "applicationBodyContainer", .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "glyphicon glyphicon-edit"})@<br />
                         @Ajax.ActionLink("Delete", "Delete", "Services", New With {.id = item.ID}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "applicationBodyContainer", .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "glyphicon glyphicon-trash"})
+                        @Html.ActionLink("ADD TO CART", "NewAddToCart", "UserCarts", New With {.VALUE = item.ID, .sectionID = item.SectionID}, htmlAttributes:=New With {.class = "btnAddCart btn btn-primary btn-block"})
                     Else
-                        @Html.ActionLink("ADD TO CART", "NewAddToCart", "UserCarts", New With {.VALUE = item.ID, .sectionName = item.Section}, htmlAttributes:=New With {.class = "btnAddCart btn btn-primary btn-block"})
+                        @Html.ActionLink("ADD TO CART", "NewAddToCart", "UserCarts", New With {.VALUE = item.ID, .sectionID = item.SectionID}, htmlAttributes:=New With {.class = "btnAddCart btn btn-primary btn-block"})
 
                     End If
 

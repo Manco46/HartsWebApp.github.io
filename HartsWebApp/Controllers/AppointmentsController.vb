@@ -49,7 +49,7 @@ Namespace Controllers
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
-        Async Function Create(<Bind(Include:="ID,UserID,HairServiceID,HairServiceAddOnID,Is_Dye,Colour,NailsServiceID,NailsServiceAddOnID,MakeUpServiceID,MakeUpServiceAddOnID,AppoDate,PreferedTimeOfDay,Start_Time,End_Time,Fee,Employee_ID,Status")> ByVal appointment As Appointment) As Task(Of ActionResult)
+        Async Function Create(<Bind(Include:="ID,UserID,AppoDate,PreferedTimeOfDay,Start_Time,End_Time,Fee,Employee_ID,Status")> ByVal appointment As Appointment) As Task(Of ActionResult)
 
 
             appointment.UserID = User.Identity.GetUserId

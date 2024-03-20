@@ -69,5 +69,6 @@ Public Class ApplicationDbContext
         Return New ApplicationDbContext()
     End Function
 
+
     'Public Property ApplicationUsers As System.Data.Entity.DbSet(Of ApplicationUser)
 End Class

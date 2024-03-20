@@ -10,6 +10,9 @@ Public Class Service
     <Required(ErrorMessage:="This field is required"), Display(Name:="What Sexuality")>
     Public Property Sexuality As String
 
+    <Display(Name:="Is This An Add-On")>
+    Public Property Add_On As Boolean
+
     <Required(ErrorMessage:="This field is required"), Display(Name:="Which Category")>
     Public Property Category As String
 

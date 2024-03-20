@@ -21,7 +21,7 @@ End Code
         @<div Class="container">
             <h2> @item.SectionName  </h2>
             <div id="myCarousel-@item.SectionName" Class="carousel slide" data-ride="carousel">
-                @Html.Partial("_HomeView", db.Services.Where(Function(s) s.Section = item.SectionName).ToList)
+                @Html.Partial("_HomeView", db.Services.Where(Function(s) s.SectionID = item.ID).ToList)
                 <!-- Left and right controls -->
                 <a class="left carousel-control" href="#myCarousel-@item.SectionName" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left"></span>

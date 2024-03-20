@@ -2,7 +2,7 @@
 
 Public Class ServiceSection
 
-    <Required(ErrorMessage:="This field is required"), Display(Name:="ID")>
+
     Public Property ID As String
 
     <Required(ErrorMessage:="This field is required"), Display(Name:="Enter Section Name")>

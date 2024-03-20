@@ -10,7 +10,7 @@ End Code
 <ol class="carousel-indicators">
 
     @For Each indicatorItem In Model
-        @<li data-target="myCarousel-@indicatorItem.Section" data-slide-to="@indicatorCounter" class="@IIf(indicatorCounter = 0, "active", "")"></li>
+        @<li data-target="myCarousel-@indicatorItem.SectionID" data-slide-to="@indicatorCounter" class="@IIf(indicatorCounter = 0, "active", "")"></li>
         indicatorCounter += 1
     Next
 </ol>
