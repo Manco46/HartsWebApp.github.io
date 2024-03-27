@@ -35,4 +35,6 @@ Public Class Service
 
     Public Property myServiceSection As ServiceSection
 
+    Public Property appointmentServices As ICollection(Of AppointmentService)
+
 End Class

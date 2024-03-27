@@ -57,6 +57,11 @@ Public Class ApplicationDbContext
            .WithRequired(Function(a) a.Appointments) _
            .HasForeignKey(Function(a) a.AppointmentID)
 
+        modelBuilder.Entity(Of Service)() _
+           .HasMany(Function(u) u.appointmentServices) _
+           .WithRequired(Function(a) a.Service) _
+           .HasForeignKey(Function(a) a.ServiceID)
+
         modelBuilder.Entity(Of ServiceSection)() _
           .HasMany(Function(u) u.Services) _
           .WithRequired(Function(a) a.myServiceSection) _

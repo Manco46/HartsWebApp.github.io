@@ -5,7 +5,9 @@
 
     Public Property AppointmentID As String
 
-    Public Property Service As ServiceSection
+    Public Property ServiceID As String
+
+    Public Property Service As Service
 
     Public Property Appointments As Appointment
 End Class

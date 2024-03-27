@@ -85,7 +85,7 @@ Namespace Controllers
         <ValidateAntiForgeryToken()>
         Async Function Create(<Bind(Include:="SectionID,Sexuality,Add_On,Category,Type,Description,Duration,Fee,Picture")> ByVal service As Service) As Task(Of ActionResult)
 
-            service.ID = "service-" + Guid.NewGuid().ToString("X")
+            service.ID = "service" + Guid.NewGuid().ToString("D")
 
             If ModelState.IsValid Then
                 db.Services.Add(service)

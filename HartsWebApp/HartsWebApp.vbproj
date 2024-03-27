@@ -201,6 +201,7 @@
     <Compile Include="App_Start\Startup.Auth.vb" />
     <Compile Include="Controllers\AccountController.vb" />
     <Compile Include="Controllers\AppointmentsController.vb" />
+    <Compile Include="Controllers\AppointmentServicesController.vb" />
     <Compile Include="Controllers\ManageController.vb" />
     <Compile Include="Controllers\RoleController.vb" />
     <Compile Include="Controllers\ServicesController.vb" />
@@ -259,6 +260,10 @@
       <DependentUpon>202403201123196_EditingTheDataTypeOfAddOnToBoolean.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202403201123196_EditingTheDataTypeOfAddOnToBoolean.vb" />
+    <Compile Include="Migrations\202403250858262_ConfigureServiceANDApplicationServiceRelationshipCorrectly.Designer.vb">
+      <DependentUpon>202403250858262_ConfigureServiceANDApplicationServiceRelationshipCorrectly.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202403250858262_ConfigureServiceANDApplicationServiceRelationshipCorrectly.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\AccountViewModels.vb" />
     <Compile Include="Models\Appointment.vb" />
@@ -327,6 +332,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202403201123196_EditingTheDataTypeOfAddOnToBoolean.resx">
       <DependentUpon>202403201123196_EditingTheDataTypeOfAddOnToBoolean.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202403250858262_ConfigureServiceANDApplicationServiceRelationshipCorrectly.resx">
+      <DependentUpon>202403250858262_ConfigureServiceANDApplicationServiceRelationshipCorrectly.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -429,6 +437,11 @@
     <Content Include="Views\Shared\_AppointmentServiceView.vbhtml" />
     <Content Include="Views\Shared\_CartServices.vbhtml" />
     <Content Include="Views\Account\Index.vbhtml" />
+    <Content Include="Views\AppointmentServices\Create.vbhtml" />
+    <Content Include="Views\AppointmentServices\Delete.vbhtml" />
+    <Content Include="Views\AppointmentServices\Details.vbhtml" />
+    <Content Include="Views\AppointmentServices\Edit.vbhtml" />
+    <Content Include="Views\AppointmentServices\Index.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

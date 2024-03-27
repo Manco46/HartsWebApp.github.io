@@ -18,11 +18,32 @@ Namespace Controllers
         Inherits System.Web.Mvc.Controller
 
         Private db As New ApplicationDbContext
-
+        Dim lstServices As New List(Of String)
         ' GET: UserCarts
         Async Function Index() As Task(Of ActionResult)
             Return View(Await db.ServiceSections.ToListAsync)
         End Function
+
+
+
+        ' GET: UserCarts/AddService
+        Function AddService(ByVal serviceID As String) As ActionResult
+
+            'If ViewBag.serviceIDs Is Nothing Then
+            '    ViewBag.serviceIDs = New List(Of String)
+            'End If
+
+            'ViewBag.serviceIDs.Add(serviceID)
+            lstServices.Add(serviceID)
+            ViewBag.serviceIDs = lstServices
+
+            Return Json(ViewBag.serviceIDs, JsonRequestBehavior.AllowGet)
+
+            'Return PartialView("_CartServices", db.Services)
+        End Function
+
+
+
 
         Async Function GetCartSectionItems(ByVal sectionID As String) As Task(Of PartialViewResult)
 

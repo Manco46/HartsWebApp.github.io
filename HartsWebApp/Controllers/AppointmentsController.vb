@@ -58,6 +58,7 @@ Namespace Controllers
             If ModelState.IsValid Then
                 db.Appointments.Add(appointment)
                 Await db.SaveChangesAsync()
+
                 Return RedirectToAction("Index")
             End If
             Dim catergoryList = From s In db.Services Select s.Category.ToUpper
