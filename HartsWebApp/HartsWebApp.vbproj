@@ -264,6 +264,10 @@
       <DependentUpon>202403250858262_ConfigureServiceANDApplicationServiceRelationshipCorrectly.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202403250858262_ConfigureServiceANDApplicationServiceRelationshipCorrectly.vb" />
+    <Compile Include="Migrations\202404112104071_ServiceAndCartRelationshipConfig.Designer.vb">
+      <DependentUpon>202404112104071_ServiceAndCartRelationshipConfig.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404112104071_ServiceAndCartRelationshipConfig.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\AccountViewModels.vb" />
     <Compile Include="Models\Appointment.vb" />
@@ -335,6 +339,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202403250858262_ConfigureServiceANDApplicationServiceRelationshipCorrectly.resx">
       <DependentUpon>202403250858262_ConfigureServiceANDApplicationServiceRelationshipCorrectly.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404112104071_ServiceAndCartRelationshipConfig.resx">
+      <DependentUpon>202404112104071_ServiceAndCartRelationshipConfig.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

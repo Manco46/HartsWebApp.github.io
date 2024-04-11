@@ -37,4 +37,6 @@ Public Class Service
 
     Public Property appointmentServices As ICollection(Of AppointmentService)
 
+    Public Property UserCarts As ICollection(Of UserCart)
+
 End Class

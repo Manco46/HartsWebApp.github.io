@@ -52,6 +52,11 @@ Public Class ApplicationDbContext
             .WithRequired(Function(a) a.myUser) _
             .HasForeignKey(Function(a) a.UserID)
 
+        modelBuilder.Entity(Of Service)() _
+            .HasMany(Function(u) u.UserCarts) _
+            .WithRequired(Function(s) s.myService) _
+            .HasForeignKey(Function(s) s.ServiceID)
+
         modelBuilder.Entity(Of Appointment)() _
            .HasMany(Function(u) u.appointmentServices) _
            .WithRequired(Function(a) a.Appointments) _

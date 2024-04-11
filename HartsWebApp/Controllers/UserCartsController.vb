@@ -11,6 +11,7 @@ Imports HartsWebApp
 Imports Microsoft.AspNet.Identity
 Imports Microsoft.AspNet.Identity.Owin
 Imports Microsoft.Owin.Security
+Imports Newtonsoft.Json
 
 Namespace Controllers
     <Authorize>
@@ -18,9 +19,39 @@ Namespace Controllers
         Inherits System.Web.Mvc.Controller
 
         Private db As New ApplicationDbContext
-        Dim lstServices As New List(Of String)
+        'Dim lstServices As New List(Of String)
+
+        Private Sub ViewbagIntialisation()
+            If User.Identity.IsAuthenticated Then
+                Dim lstTimesRequired As New List(Of String)
+                lstTimesRequired.Add("07:00")
+                lstTimesRequired.Add("08:00")
+                lstTimesRequired.Add("09:00")
+                lstTimesRequired.Add("10:00")
+                lstTimesRequired.Add("11:00")
+                lstTimesRequired.Add("12:00")
+                lstTimesRequired.Add("13:00")
+                lstTimesRequired.Add("14:00")
+                lstTimesRequired.Add("15:00")
+                lstTimesRequired.Add("16:00")
+                lstTimesRequired.Add("17:00")
+                lstTimesRequired.Add("18:00")
+                lstTimesRequired.Add("19:00")
+                lstTimesRequired.Add("20:00")
+                ViewBag.TimesRequired = lstTimesRequired
+
+                Dim userid As String = User.Identity.GetUserId
+
+                ViewBag.TotalAmount = db.UserCarts.Where(Function(c) c.UserID = userid).Select(Function(T) T.myService).Sum(Function(j) j.Fee)
+
+            End If
+
+
+        End Sub
+
         ' GET: UserCarts
         Async Function Index() As Task(Of ActionResult)
+            ViewbagIntialisation()
             Return View(Await db.ServiceSections.ToListAsync)
         End Function
 
@@ -29,17 +60,32 @@ Namespace Controllers
         ' GET: UserCarts/AddService
         Function AddService(ByVal serviceID As String) As ActionResult
 
-            'If ViewBag.serviceIDs Is Nothing Then
-            '    ViewBag.serviceIDs = New List(Of String)
-            'End If
 
-            'ViewBag.serviceIDs.Add(serviceID)
-            lstServices.Add(serviceID)
-            ViewBag.serviceIDs = lstServices
+            'lstServices.Add(serviceID)
+            'ViewBag.serviceIDs = lstServices
 
-            Return Json(ViewBag.serviceIDs, JsonRequestBehavior.AllowGet)
+            'Return Json(ViewBag.serviceIDs, JsonRequestBehavior.AllowGet)
 
-            'Return PartialView("_CartServices", db.Services)
+            Dim listOfProductIds As New List(Of String)
+
+            If Request.Cookies("CheckoutProducts") IsNot Nothing Then
+                Dim existingCookies As HttpCookie = Request.Cookies("CheckoutProducts")
+                Dim existingServiceIds As String = existingCookies.Value
+                listOfProductIds = JsonConvert.DeserializeObject(Of List(Of String))(existingServiceIds)
+            End If
+
+
+            listOfProductIds.Add(serviceID)
+
+            Dim jsonServiceIds As String = JsonConvert.SerializeObject(listOfProductIds)
+
+            Dim checkOutCookie As New HttpCookie("CheckoutProducts", jsonServiceIds)
+
+            Response.Cookies.Add(checkOutCookie)
+
+            Return Json(jsonServiceIds, JsonRequestBehavior.AllowGet)
+
+
         End Function
 
 

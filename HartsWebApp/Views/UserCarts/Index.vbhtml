@@ -5,7 +5,7 @@
     Dim db As New ApplicationDbContext
 End Code
 
-
+<h2>@ViewBag.TotalAmount</h2>
 
 <div class="container">
     <div Class="">
@@ -14,18 +14,19 @@ End Code
                 <div class="panel panel-default @item.SectionName">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                              
-                            @Ajax.ActionLink(item.SectionName, "GetCartSectionItems", "UserCarts", New With {.sectionID = item.ID}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "bodyContent-" + item.SectionName, .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "w3-bar-item w3-button"})                            
+
+                            @Ajax.ActionLink(item.SectionName, "GetCartSectionItems", "UserCarts", New With {.sectionID = item.ID}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "bodyContent-" + item.SectionName, .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "w3-bar-item w3-button"})
                         </h3>
-                    </div>                    
+                    </div>
                     <div id="bodyContent-@item.SectionName" class="panel-body form-group">
-                        @Html.Partial("_CartServices", db.Services.Where(Function(s) s.SectionID = item.ID And s.Add_On = False))      
+                        @Html.Partial("_CartServices", db.Services.Where(Function(s) s.SectionID = item.ID And s.Add_On = False))
                         <hr />
                         <div>
                             <h2>ADD-ONS</h2>
                             @Html.Partial("_CartServices", db.Services.Where(Function(s) s.SectionID = item.ID And s.Add_On = True))
-                        </div>                           
-                    </div>                                    
+                        </div>
+                    </div>
+
                 </div>
             </div>
             @<script>
@@ -37,8 +38,29 @@ End Code
                         });
 
                 });
-                </script>
+            </script>
         Next
+
+
+        <div class="form-group">
+            @Html.Label("Date for Appointment", htmlAttributes:=New With {.class = "control-label col-md-2"})
+            <div class="col-md-10">
+                <input class="form-control" type="date"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+           <div class="col-md-10">
+                @Html.DropDownList("timeRequired", New SelectList(ViewBag.TimesRequired), "Prefered Time of Appointment", New With {.class = "form-control"})
+            </div>
+        </div>
+
+        <h2>@ViewBag.TotalAmount</h2>
+
+        <div>
+            @Ajax.ActionLink("CHECKOUT", "AddService", "UserCarts", New With {.serviceID = ""}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "troubleshoot", .InsertionMode = InsertionMode.Replace, .OnSuccess = "hideSelectedItem('" + "" + "')"}, htmlAttributes:=New With {.class = "btn btn-block"})
+
+        </div>
     </div>
 </div>
 
