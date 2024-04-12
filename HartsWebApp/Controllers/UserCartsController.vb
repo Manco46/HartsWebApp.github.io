@@ -42,7 +42,7 @@ Namespace Controllers
 
                 Dim userid As String = User.Identity.GetUserId
 
-                ViewBag.TotalAmount = db.UserCarts.Where(Function(c) c.UserID = userid).Select(Function(T) T.myService).Sum(Function(j) j.Fee)
+                ViewBag.TotalAmount = "Total Amount: " + CStr(db.UserCarts.Where(Function(c) c.UserID = userid).Select(Function(T) T.myService).Sum(Function(j) j.Fee)) + " ZAR/RANDS"
 
             End If
 
@@ -169,11 +169,11 @@ Namespace Controllers
 
 
         ' POST: UserCarts/Delete/5
+        ''<ActionName("Delete")>
         <HttpPost()>
-        <ActionName("Delete")>
         <ValidateAntiForgeryToken()>
         Async Function DeleteConfirmed(ByVal id As String) As Task(Of ActionResult)
-            Dim userCart As UserCart = Await db.UserCarts.FindAsync(id)
+            Dim userCart As UserCart = Await db.UserCarts.FirstOrDefaultAsync(Function(c) c.UserID = User.Identity.GetUserId And c.ServiceID = id)
             db.UserCarts.Remove(userCart)
             Await db.SaveChangesAsync()
             Return RedirectToAction("Index")

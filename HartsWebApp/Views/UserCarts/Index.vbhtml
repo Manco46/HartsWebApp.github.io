@@ -40,25 +40,26 @@ End Code
                 });
             </script>
         Next
+        <hr />
+        <div>
+            <h3>APPOINTMENT SCHEDULING</h3>
 
-
-        <div class="form-group">
-            @Html.Label("Date for Appointment", htmlAttributes:=New With {.class = "control-label col-md-2"})
-            <div class="col-md-10">
-                <input class="form-control" type="date"/>
+            <div class="form-group">               
+                <div class="col-md-10">
+                    <input class="form-control" type="date" />
+                </div>
+            </div>          
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.DropDownList("timeRequired", New SelectList(ViewBag.TimesRequired), "Prefered Time of Appointment", New With {.class = "form-control"})
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-           <div class="col-md-10">
-                @Html.DropDownList("timeRequired", New SelectList(ViewBag.TimesRequired), "Prefered Time of Appointment", New With {.class = "form-control"})
-            </div>
-        </div>
-
+        </div>        
+        <hr />
         <h2>@ViewBag.TotalAmount</h2>
 
         <div>
-            @Ajax.ActionLink("CHECKOUT", "AddService", "UserCarts", New With {.serviceID = ""}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "troubleshoot", .InsertionMode = InsertionMode.Replace, .OnSuccess = "hideSelectedItem('" + "" + "')"}, htmlAttributes:=New With {.class = "btn btn-block"})
+            @Ajax.ActionLink("CHECKOUT", "AddService", "UserCarts", New With {.serviceID = ""}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "troubleshoot", .InsertionMode = InsertionMode.Replace, .OnSuccess = "hideSelectedItem('" + "" + "')"}, htmlAttributes:=New With {.class = "btn btn-primary btn-block"})
 
         </div>
     </div>

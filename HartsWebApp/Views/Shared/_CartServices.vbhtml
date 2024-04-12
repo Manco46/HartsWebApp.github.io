@@ -7,7 +7,7 @@
     @For Each item In Model
         @<div class="col-md-4" id="@item.ID">
             <div class="thumbnail" for="ServiceID-@item.SectionID">
-                @Ajax.ActionLink(" ", "Delete", "Services", New With {.id = item.ID}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "applicationBodyContainer", .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "glyphicon glyphicon-remove"})
+                @Ajax.ActionLink(" Remove", "DeleteConfirmed", "Usercarts", New With {.id = item.ID}, New AjaxOptions With {.HttpMethod = "POST", .UpdateTargetId = "applicationBodyContainer", .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "glyphicon glyphicon-remove"})
                 <img class="img-responsive img-thumbnail" src="" alt="@item.Type - image not available" style="width:100%;" />
                 <div class="caption">
                     <h3>@item.Type</h3>
@@ -16,11 +16,7 @@
                     <h4>R @item.Fee</h4>
                 </div>
 
-
-
-                @Ajax.ActionLink("Add To CheckOut", "AddService", "UserCarts", New With {.serviceID = item.ID}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "troubleshoot", .InsertionMode = InsertionMode.Replace, .OnSuccess = "hideSelectedItem('" + item.ID + "')"}, htmlAttributes:=New With {.class = "checkbox"})
-
-
+               
             </div>
         </div>
 
