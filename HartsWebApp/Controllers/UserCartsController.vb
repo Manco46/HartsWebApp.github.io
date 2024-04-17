@@ -41,12 +41,31 @@ Namespace Controllers
                 ViewBag.TimesRequired = lstTimesRequired
 
                 Dim userid As String = User.Identity.GetUserId
+                ViewBag.UserID = userid
+                ''' Dim amount As Integer? = Nothing
+                ''' amount = ())
+                'If IsNothing(db.UserCarts.Where(Function(c) c.UserID = userid).Select(Function(T) T.myService).Sum(Function(j) j.Fee)) Then
 
-                ViewBag.TotalAmount = "Total Amount: " + CStr(db.UserCarts.Where(Function(c) c.UserID = userid).Select(Function(T) T.myService).Sum(Function(j) j.Fee)) + " ZAR/RANDS"
+                '    ViewBag.TotalAmount = "Total Amount: 0 ZAR/RANDS"
+                'Else
+
+                '    ViewBag.TotalAmount = "Total Amount: " + db.UserCarts.Where(Function(c) c.UserID = userid).Select(Function(T) T.myService).Sum(Function(j) j.Fee) + " ZAR/RANDS"
+                'End If
+
+
+                Dim firstFee = db.UserCarts.Where(Function(c) c.UserID = userid).Select(Function(T) T.myService).FirstOrDefault()
+
+                If firstFee IsNot Nothing Then
+                    ViewBag.TotalAmount = "Total Amount: " + db.UserCarts.Where(Function(c) c.UserID = userid).Select(Function(T) T.myService).Sum(Function(j) j.Fee) + " ZAR/RANDS"
+                Else
+                    ' Handle the case where there are no service fees
+                    ViewBag.TotalAmount = "Total Amount: 0 ZAR/RANDS"
+                End If
+
+
+
 
             End If
-
-
         End Sub
 
         ' GET: UserCarts

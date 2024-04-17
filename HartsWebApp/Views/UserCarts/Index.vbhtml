@@ -3,6 +3,13 @@
 
     ViewData("Title") = "Harts Cart"
     Dim db As New ApplicationDbContext
+
+    Dim userId = ViewBag.UserID
+
+
+
+
+
 End Code
 
 <h2>@ViewBag.TotalAmount</h2>
@@ -19,11 +26,11 @@ End Code
                         </h3>
                     </div>
                     <div id="bodyContent-@item.SectionName" class="panel-body form-group">
-                        @Html.Partial("_CartServices", db.Services.Where(Function(s) s.SectionID = item.ID And s.Add_On = False))
+                        @Html.Partial("_CartServices", db.UserCarts.Where(Function(c) c.UserID = userId))
                         <hr />
                         <div>
                             <h2>ADD-ONS</h2>
-                            @Html.Partial("_CartServices", db.Services.Where(Function(s) s.SectionID = item.ID And s.Add_On = True))
+                            @Html.Partial("_CartServices", db.UserCarts.Where(Function(c) c.UserID = userId And c.myService.SectionID = item.ID And c.myService.ID = "" And c.myService.Add_On = True))
                         </div>
                     </div>
 
