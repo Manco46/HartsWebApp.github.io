@@ -56,7 +56,7 @@ Namespace Controllers
                 Dim firstFee = db.UserCarts.Where(Function(c) c.UserID = userid).Select(Function(T) T.myService).FirstOrDefault()
 
                 If firstFee IsNot Nothing Then
-                    ViewBag.TotalAmount = "Total Amount: " + db.UserCarts.Where(Function(c) c.UserID = userid).Select(Function(T) T.myService).Sum(Function(j) j.Fee) + " ZAR/RANDS"
+                    ViewBag.TotalAmount = "Total Amount: " + CStr(db.UserCarts.Where(Function(c) c.UserID = userid).Select(Function(T) T.myService).Sum(Function(j) j.Fee)) + " ZAR/RANDS"
                 Else
                     ' Handle the case where there are no service fees
                     ViewBag.TotalAmount = "Total Amount: 0 ZAR/RANDS"
@@ -71,7 +71,21 @@ Namespace Controllers
         ' GET: UserCarts
         Async Function Index() As Task(Of ActionResult)
             ViewbagIntialisation()
-            Return View(Await db.ServiceSections.ToListAsync)
+
+            Dim userid As String = User.Identity.GetUserId
+                Dim filterUser = db.UserCarts.Where(Function(c) c.UserID = userid)
+                'fix mistake must be id not name
+                Dim groupQuery = filterUser.GroupJoin(db.Services,
+                                                      Function(c) c.ServiceID,
+                                                      Function(s) s.ID,
+                                                      Function(c, services) New With {
+                                                        .UserCart = c,
+                                                        .Service = services
+                                                       })
+                Dim service = Await groupQuery.SelectMany(Function(g) g.Service).ToListAsync
+
+
+            Return View(service)
         End Function
 
 
@@ -110,13 +124,13 @@ Namespace Controllers
 
 
 
-        Async Function GetCartSectionItems(ByVal sectionID As String) As Task(Of PartialViewResult)
+        Async Function GetCartSectionItems() As Task(Of PartialViewResult)
 
             If User.Identity.IsAuthenticated Then
                 Dim userid As String = User.Identity.GetUserId
                 Dim filterUser = db.UserCarts.Where(Function(c) c.UserID = userid)
                 'fix mistake must be id not name
-                Dim groupQuery = filterUser.GroupJoin(db.Services.Where(Function(fs) fs.SectionID = sectionID),
+                Dim groupQuery = filterUser.GroupJoin(db.Services,
                                                       Function(c) c.ServiceID,
                                                       Function(s) s.ID,
                                                       Function(c, services) New With {
