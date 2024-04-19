@@ -11,6 +11,7 @@ Imports HartsWebApp
 Imports Microsoft.AspNet.Identity
 Imports Microsoft.AspNet.Identity.Owin
 Imports Microsoft.Owin.Security
+Imports Newtonsoft.Json
 
 Namespace Controllers
 
@@ -39,36 +40,81 @@ Namespace Controllers
         End Function
 
         ' GET: Appointments/Create
-        Function Create() As ActionResult
-            ViewBag.UserID = New SelectList(db.Users, "Id", "Email")
-            Return View()
-        End Function
+        'Function Create() As ActionResult
+        '    ViewBag.UserID = New SelectList(db.Users, "Id", "Email")
+        '    Return View()
+        'End Function
 
         ' POST: Appointments/Create
         'To protect from overposting attacks, enable the specific properties you want to bind to, for 
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        <HttpPost()>
-        <ValidateAntiForgeryToken()>
-        Async Function Create(<Bind(Include:="ID,UserID,AppoDate,PreferedTimeOfDay,Start_Time,End_Time,Fee,Employee_ID,Status")> ByVal appointment As Appointment) As Task(Of ActionResult)
+        ''<HttpPost()>
+        ''<ValidateAntiForgeryToken()>
 
+        Async Function Create(ByVal appointmentDate As String, ByVal appointmentPreferedTime As String, ByVal appointmentFee As String) As Task(Of JsonResult)
 
-            appointment.UserID = User.Identity.GetUserId
-
-
-            If ModelState.IsValid Then
-                db.Appointments.Add(appointment)
-                Await db.SaveChangesAsync()
-
-                Return RedirectToAction("Index")
+            If IsNothing(appointmentDate) Or appointmentDate = "" Then
+                Return Json("Please Select A Date", JsonRequestBehavior.AllowGet)
+            ElseIf IsNothing(appointmentPreferedTime) Or appointmentPreferedTime = "" Then
+                Return Json("Prefered Time of Appointment", JsonRequestBehavior.AllowGet)
             End If
-            Dim catergoryList = From s In db.Services Select s.Category.ToUpper
-            ViewBag.lstCategory = catergoryList
-            Dim gender As New List(Of String)
-            gender.Add("MALE")
-            gender.Add("FEMALE")
-            ViewBag.lstGender = gender
-            ViewBag.UserID = New SelectList(db.Users, "Id", "Email", appointment.UserID)
-            Return View(appointment)
+
+
+            Dim rnd As New Random
+            Dim userid As String = User.Identity.GetUserId
+
+
+            Dim filterUser = db.UserCarts.Where(Function(c) c.UserID = userid)
+            'fix mistake must be id not name
+            Dim groupQuery = filterUser.GroupJoin(db.Services,
+                                                      Function(c) c.ServiceID,
+                                                      Function(s) s.ID,
+                                                      Function(c, services) New With {
+                                                        .UserCart = c,
+                                                        .Service = services
+                                                       })
+            Dim service = Await groupQuery.SelectMany(Function(g) g.Service).ToListAsync
+
+            ' Create new appointment
+            Dim appointment As New Appointment() With {
+                .UserID = userid,
+                .ID = "appointment+" + Guid.NewGuid().ToString("D") + "=" + CStr(rnd.Next(10000, 999999999)),
+                .AppoDate = appointmentDate,
+                .PreferedTimeOfDay = appointmentPreferedTime,
+                .Fee = CDec(service.Select(Function(f) f.Fee).Count),
+                .appointmentServices = New List(Of AppointmentService)()
+            }
+
+            ' Add appointment services
+            For Each item In service
+                Dim ass As New AppointmentService() With {
+                    .ID = "appointmentServices" + CStr(rnd.Next(100, 999999999)) + "HARTSservices",
+                    .AppointmentID = appointment.ID,
+                    .ServiceID = item.ID
+                }
+                appointment.appointmentServices.Add(ass)
+            Next
+
+            ' Add appointment to context and save changes
+            db.Appointments.Add(appointment)
+            Await db.SaveChangesAsync()
+
+            ' Find the cart associated with the user
+            Dim cart = Await db.UserCarts.Where(Function(c) c.UserID = userid).ToListAsync
+            If cart Is Nothing Then
+                Return Json("Cart was not found,", JsonRequestBehavior.AllowGet)
+            End If
+
+            ' Remove all products from the cart
+            For Each product In cart
+                Dim cartProducDelete As UserCart = Await db.UserCarts.FindAsync(product.ID)
+                db.UserCarts.Remove(cartProducDelete)
+            Next
+
+            ' Save changes to the database
+            Await db.SaveChangesAsync()
+
+            Return Json("Success!, Now Go To Appointments And Make Your Online Payment,", JsonRequestBehavior.AllowGet)
         End Function
 
         ' GET: Appointments/Edit/5

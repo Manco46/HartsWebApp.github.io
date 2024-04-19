@@ -21,11 +21,13 @@ End Code
                             @<li Class="list-group-item" id="@item.ID">
                                 @item.Type - @item.Category - R @item.Fee
                                 <span class="label label-info" data-toggle="modal" data-target="#popupInfoItem">more information</span>
-                                <span Class="glyphicon glyphicon-trash"></span>
+                                  @Html.ActionLink(" ", "Delete", "UserCarts", New With {.id = item.ID}, New With {.class = "glyphicon glyphicon-trash"})
+                                <!--/*<span Class="glyphicon glyphicon-trash"></span>*/-->
                                 <div class="modal fade" id="popupInfoItem" role="dialog">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
+                                              
                                                 <button type="button" class="close glyphicon glyphicon-remove" data-dismiss="modal"></button>
                                                 <h4 class="modal-title">@item.Type - @item.Category - R @item.Fee</h4>
                                             </div>
@@ -44,19 +46,20 @@ End Code
                         Next
                     </ul>
                 </div>
-                <div class="panel-footer">
-                    @ViewBag.TotalAmount
-                </div>
+                <div class="panel-footer">Total Amount: <h6 id="appointmentTotalFee">@ViewBag.TotalAmount</h6> ZAR/RANDS</div>
             </div>
         </div>
 
         <hr />
         <div>
             <h3>APPOINTMENT SCHEDULING</h3>
+            <div id="testPay">
 
+
+            </div>
             <div class="form-group">
                 <div class="col-md-10">
-                    <input class="form-control" type="date" />
+                    <input id="appointmentDate" class="form-control" type="date" />
                 </div>
             </div>
             <div class="form-group">
@@ -65,11 +68,9 @@ End Code
                 </div>
             </div>
         </div>
-        <hr />
-        <div>
-            @Ajax.ActionLink("CHECKOUT", "AddService", "UserCarts", New With {.serviceID = ""}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "troubleshoot", .InsertionMode = InsertionMode.Replace, .OnSuccess = "hideSelectedItem('" + "" + "')"}, htmlAttributes:=New With {.class = "btn btn-primary btn-block"})
-
-        </div>
+        <hr />        
+        <a id="btnCheckout"class="btn btn-primary btn-block">CHECKOUT</a>           
+        
     </div>
 </div>
 
@@ -77,43 +78,38 @@ End Code
     
 
 </div>
-<div style="width: 225px">
-    <h6 style="
-	  margin: 10px 0;
-	  padding: 0;
-	  font-family: roboto-regular, sans-serif;
-	  font-size: 14px;
-	  color: #1d1d1b;
-	">
-        Harts Payments
-    </h6>
 
-    <a href="https://pay.ikhokha.com/harts-beauty/buy/hartspayments" style="text-decoration: none">
-        <div style="
-			overflow: hidden;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 100%;
-			height: 48px;
-			background: #0BB3BF;
-			color: #FFFFFF;
-			border: 1px solid #e5e5e5;
-			box-shadow: 1px solid #e5e5e5;
-			border-radius: 16px;
-			font-family: roboto-medium, sans-serif;
-			font-weight: 700;
-		  ">
-            Buy Now
-        </div>
-    </a>
-    <h6 style="
-		margin: 5px 0;
-		padding: 0;
-		font-size: 8px;
-		font-family: roboto-regular, sans-serif;
-		text-align: center;
-	  ">
-        Powered by iKhokha
-    </h6>
-</div>
+<script>
+    $(function () {
+        $("#btnCheckout").click(function () {
+            $("#btnCheckout").prop("disabled", true);
+            var appoDate = $("#appointmentDate").val();
+            var appoTime = $("#timeRequired").val();
+            var totalFee = $("#appointmentTotalFee").val();
+
+            $.ajax({
+
+                url: "@Url.Action("Create", "Appointments")",
+                type: "POST",
+                data: { appointmentDate: appoDate, appointmentPreferedTime: appoTime, appointmentFee : totalFee },
+                dataType: "json",
+                success: function (appoResults) {
+                    $("#testPay").empty();
+                    $("#testPay").append(appoResults);
+                    $("#btnCheckout").prop("enabled", true);
+                    var url = "@Url.Action("Index", "Appointments")";
+                    // Redirect to the specified URL
+                    window.location.href = url;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $("#testPay").empty();
+                    $("#testPay").append("Error Type: " + jqXHR.status + " Status: " + jqXHR.statusText + " Response text: " + jqXHR.responseText);
+                    $("#btnCheckout").prop("enabled", true);
+                }
+            });
+        });
+    });
+</script>
+
+
+

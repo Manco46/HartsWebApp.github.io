@@ -18,7 +18,7 @@ End If
 
 <div class="">@ViewBag.ErrorMessage </div>
 
-<div class="row">
+<div id="serviceBoxContainer" class="row">
     @For Each item In Model
         @<div class="col-md-4">
             <div class="thumbnail" for="ServiceID-@item.SectionID">

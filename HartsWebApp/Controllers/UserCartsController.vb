@@ -42,24 +42,15 @@ Namespace Controllers
 
                 Dim userid As String = User.Identity.GetUserId
                 ViewBag.UserID = userid
-                ''' Dim amount As Integer? = Nothing
-                ''' amount = ())
-                'If IsNothing(db.UserCarts.Where(Function(c) c.UserID = userid).Select(Function(T) T.myService).Sum(Function(j) j.Fee)) Then
-
-                '    ViewBag.TotalAmount = "Total Amount: 0 ZAR/RANDS"
-                'Else
-
-                '    ViewBag.TotalAmount = "Total Amount: " + db.UserCarts.Where(Function(c) c.UserID = userid).Select(Function(T) T.myService).Sum(Function(j) j.Fee) + " ZAR/RANDS"
-                'End If
 
 
                 Dim firstFee = db.UserCarts.Where(Function(c) c.UserID = userid).Select(Function(T) T.myService).FirstOrDefault()
 
                 If firstFee IsNot Nothing Then
-                    ViewBag.TotalAmount = "Total Amount: " + CStr(db.UserCarts.Where(Function(c) c.UserID = userid).Select(Function(T) T.myService).Sum(Function(j) j.Fee)) + " ZAR/RANDS"
+                    ViewBag.TotalAmount = CStr(db.UserCarts.Where(Function(c) c.UserID = userid).Select(Function(T) T.myService).Sum(Function(j) j.Fee))
                 Else
                     ' Handle the case where there are no service fees
-                    ViewBag.TotalAmount = "Total Amount: 0 ZAR/RANDS"
+                    ViewBag.TotalAmount = CStr("0")
                 End If
 
 
@@ -197,6 +188,11 @@ Namespace Controllers
             If IsNothing(userCart) Then
                 Return HttpNotFound()
             End If
+
+            db.UserCarts.Remove(userCart)
+            Await db.SaveChangesAsync()
+            Return RedirectToAction("Index")
+
             Return View(userCart)
         End Function
 
@@ -207,9 +203,7 @@ Namespace Controllers
         <ValidateAntiForgeryToken()>
         Async Function DeleteConfirmed(ByVal id As String) As Task(Of ActionResult)
             Dim userCart As UserCart = Await db.UserCarts.FirstOrDefaultAsync(Function(c) c.UserID = User.Identity.GetUserId And c.ServiceID = id)
-            db.UserCarts.Remove(userCart)
-            Await db.SaveChangesAsync()
-            Return RedirectToAction("Index")
+
         End Function
 
         Protected Overrides Sub Dispose(ByVal disposing As Boolean)
