@@ -224,5 +224,37 @@ Namespace Controllers
             Return PartialView("_ServiceItems", Await results.ToListAsync)
         End Function
 
+        Public Async Function CountItemsOnCart() As Task(Of String)
+            Dim Count As Integer = 0
+            If User.Identity.IsAuthenticated Then
+                Dim userid As String = User.Identity.GetUserId.ToString
+                Count = Await db.Appointments.Where(Function(c) c.UserID = userid).CountAsync
+                If Not IsNothing(Count) Then
+                    Return Count
+                End If
+            End If
+            Return Count
+        End Function
+
+        Public Async Function GetEmployeeDetails() As Task(Of JsonResult)
+            ' Retrieve specific columns for a user where UserId matches
+            Dim employeeDetails = Await db.Users.Where(Function(u) u.Id = User.Identity.GetUserId.ToString).
+                                   Select(Function(employee) New With {
+                                       .Name = employee.FirstName,
+                                       .Surname = employee.Surname,
+                                       .Gender = employee.Gender,
+                                       .Phone = employee.PhoneNumber
+                                   }).FirstOrDefaultAsync
+
+            ' Return the user details
+            Return Json(employeeDetails, JsonRequestBehavior.AllowGet)
+        End Function
+
+
+
+
+
+
+
     End Class
 End Namespace

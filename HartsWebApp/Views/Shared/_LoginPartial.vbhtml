@@ -17,7 +17,7 @@
                  <a href="@Url.Action("Index", "Appointments")">
                      <span class="glyphicon glyphicon-calendar"></span>
                      Appointments
-                     <span id="noItemsOfCart" class="badge"></span>
+                     <span id="noItemsOfAppointment" class="badge"></span>
                  </a>
              </li>
 
@@ -75,14 +75,29 @@ End If
             url: "https://localhost:44393/UserCarts/CountItemsOnCart",
             type: "GET",
             dataType: "json",
-            success: function (totalItems) {
+            success: function (totalItemsCart) {
                 $("#noItemsOfCart").empty();
-                $("#noItemsOfCart").append(totalItems);
+                $("#noItemsOfCart").append(totalItemsCart);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 $("#noItemsOfCart").empty();
-                $("#noItemsOfCart").append("Error Type: " + jqXHR + " Status: " + textStatus + " Exception: " + errorThrown);
+                $("#noItemsOfCart").append("Error Type: " + jqXHR.status + " Status: " + jqXHR.statusText + " Response: " + jqXHR.responseText);
             }
         });
+
+        $.ajax({
+            url: "https://localhost:44393/Appointments/CountItemsOnCart",
+            type: "GET",
+            dataType: "json",
+            success: function (totalItemsAppointment) {
+                $("#noItemsOfAppointment").empty();
+                $("#noItemsOfAppointment").append(totalItemsAppointment);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $("#noItemsOfAppointment").empty();
+                $("#noItemsOfAppointment").append("Error Type: " + jqXHR.status + " Status: " + jqXHR.statusText + " Response: " + jqXHR.responseText);
+            }
+        });
+
     });
 </script>
