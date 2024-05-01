@@ -3,14 +3,14 @@
 @Modeltype IEnumerable(Of IdentityRole)
 
 <h2>Index</h2>
-
+@ViewData("Title") = "User Roles"
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 
 @If Model.Count = 0 Then
 
-    @<h3>No Roles Found</h3> 
+    @<h3>No Roles Found</h3>
 
 Else
 
@@ -22,7 +22,7 @@ Else
             <th>
                 @Html.DisplayName("Role Name")
             </th>
-    
+
         </tr>
 
         @For Each item In Model
@@ -35,12 +35,12 @@ Else
                 </td>
 
                 <td>
-                    @Html.ActionLink("Edit", "Edit", New With {.id = item.Id}) |   
+                    @Html.ActionLink("Edit", "Edit", New With {.id = item.Id}) |
                     @Html.ActionLink("Delete", "Delete", New With {.id = item.Id})
                 </td>
             </tr>
         Next
 
-    </table>
+    </Table>
 End If
 

@@ -1,6 +1,6 @@
 ﻿@ModelType IndexViewModel
 @Code
-    ViewBag.Title = "Manage"
+    ViewBag.Title = "Account Management"
 End Code
 
 <h2>@ViewBag.Title.</h2>

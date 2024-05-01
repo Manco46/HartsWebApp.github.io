@@ -1,6 +1,6 @@
 ﻿@ModelType IEnumerable(Of HartsWebApp.ServiceSection)
 @Code
-ViewData("Title") = "Index"
+    ViewData("Title") = "Service Sections"
 End Code
 
 <h2>Index</h2>

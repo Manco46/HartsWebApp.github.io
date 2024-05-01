@@ -1,6 +1,6 @@
 ﻿@ModelType RegisterViewModel
 @Code
-    ViewBag.Title = "Register"
+    ViewBag.Title = "Sign Up"
 End Code
 
 <h2>@ViewBag.Title.</h2>

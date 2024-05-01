@@ -1,7 +1,6 @@
 ﻿@ModelType IEnumerable(Of HartsWebApp.AppointmentService)
 @Code
-ViewData("Title") = "Index"
-End Code
+    ViewData("Title") = "Application Services"
 
 <h2>Index</h2>
 

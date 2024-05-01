@@ -29,18 +29,26 @@ Namespace Controllers
 
         ' GET: Services
         <AllowAnonymous>
-        Async Function Index(ByVal sectionID As String, ByVal errorMessage As String) As Task(Of ActionResult)
+        Async Function Index(ByVal sectionID As String, ByVal errorMessage As String, genderFilter As String, catergory As String) As Task(Of ActionResult)
+            ViewBagInitialisation()
 
-            If User.IsInRole("ADMIN") Then
-                ViewBagInitialisation()
-                Return View(Await db.Services.ToListAsync())
+            If Not String.IsNullOrEmpty(sectionID) Then
+                ViewBag.ErrorMessage = errorMessage
+                'fix mistake must be id not name
+                Return View(Await db.Services.Where(Function(s) s.SectionID = sectionID).ToListAsync())
             End If
 
-            ViewBag.ErrorMessage = errorMessage
+            Dim serviceResults = From s In db.Services
 
-            ViewBagInitialisation()
-            'fix mistake must be id not name
-            Return View(Await db.Services.Where(Function(s) s.SectionID = sectionID).ToListAsync())
+            If Not String.IsNullOrEmpty(genderFilter) Then
+                serviceResults = serviceResults.Where(Function(g) g.Sexuality = genderFilter)
+            End If
+
+            If Not String.IsNullOrEmpty(catergory) Then
+                serviceResults = serviceResults.Where(Function(c) c.Category = catergory)
+            End If
+
+            Return View(Await serviceResults.ToListAsync)
         End Function
 
         ' GET: Services/Details/5

@@ -24,7 +24,7 @@ Public Class Appointment
     <Display(Name:="Employee In Service"), DataType(DataType.Currency), StringLength(20, ErrorMessage:="The employee id cannot be more than 20 characters")>
     Public Property Employee_ID As String
 
-    <Display(Name:="Appointment Status"), StringLength(15, ErrorMessage:="The status cannot be more than 15 characters")>
+    <Display(Name:="Appointment Status"), StringLength(50, ErrorMessage:="The status cannot be more than 15 characters")>
     Public Property Status As String
 
     Public Property myUser As ApplicationUser

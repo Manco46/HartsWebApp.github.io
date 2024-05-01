@@ -2,6 +2,7 @@
 Imports System.Collections.Generic
 Imports System.Data
 Imports System.Data.Entity
+Imports System.Data.Entity.Validation
 Imports System.Linq
 Imports System.Threading.Tasks
 Imports System.Net
@@ -78,10 +79,11 @@ Namespace Controllers
             ' Create new appointment
             Dim appointment As New Appointment() With {
                 .UserID = userid,
-                .ID = "appointment+" + Guid.NewGuid().ToString("D") + "=" + CStr(rnd.Next(10000, 999999999)),
+                .ID = Guid.NewGuid().ToString("D") + "=aPpO" + CStr(rnd.Next(10, 9999)),
                 .AppoDate = appointmentDate,
                 .PreferedTimeOfDay = appointmentPreferedTime,
                 .Fee = CDec(service.Select(Function(f) f.Fee).Count),
+                .Status = "Payment Required",
                 .appointmentServices = New List(Of AppointmentService)()
             }
 
@@ -192,38 +194,6 @@ Namespace Controllers
             Return PartialView("_HairSection", results)
         End Function
 
-        Public Async Function filterHairSection(genderFilter As String, catergory As String) As Task(Of PartialViewResult)
-            '  Dim results = From s In db.Services
-            '                Where s.Category = "Hair Service"
-            '               Select Case s
-            '
-            'Dim results As New List(Of Service)
-            'Dim catergoryList = From s In db.Services Select s.Category.ToUpper
-            'ViewBag.lstCategory = catergoryList
-
-            'Dim gender As New List(Of String)
-            'gender.Add("MALE")
-            'gender.Add("FEMALE")
-            'ViewBag.lstGender = gender
-
-            Dim results = From s In db.Services
-            'Await db.Services.ToListAsync
-
-            If Not String.IsNullOrEmpty(genderFilter) Then
-                results = results.Where(Function(s) s.Sexuality.Contains(genderFilter))
-
-            End If
-            If Not String.IsNullOrEmpty(catergory) Then
-                results = results.Where(Function(s) s.Category.Contains(catergory))
-            End If
-
-            If IsNothing(results) Then
-                ViewBag.Error = "There Is Nothing In The Table"
-            End If
-
-            Return PartialView("_ServiceItems", Await results.ToListAsync)
-        End Function
-
         Public Async Function CountItemsOnCart() As Task(Of String)
             Dim Count As Integer = 0
             If User.Identity.IsAuthenticated Then
@@ -250,7 +220,26 @@ Namespace Controllers
             Return Json(employeeDetails, JsonRequestBehavior.AllowGet)
         End Function
 
+        Public Async Function ConfirmPayment(ByVal appointmentID As String) As Task(Of ActionResult)
 
+            If Not IsNothing(appointmentID) Then
+                Try
+                    Dim statusEdit = Await db.Appointments.FindAsync(appointmentID)
+                    statusEdit.Status = "Payment confirmation, pending..."
+                    db.Entry(statusEdit).Property(Function(a) a.Status).IsModified = True
+                    Await db.SaveChangesAsync()
+                    Return RedirectToAction("Index", "Appointments")
+                Catch ex As DbEntityValidationException
+                    For Each vEs In ex.EntityValidationErrors
+                        For Each vE In vEs.ValidationErrors
+                            Debug.WriteLine("Property: {0} Error: {1}", vE.PropertyName, vE.ErrorMessage)
+                        Next
+                    Next
+                End Try
+            End If
+
+            Return RedirectToAction("Index", "Appointments")
+        End Function
 
 
 

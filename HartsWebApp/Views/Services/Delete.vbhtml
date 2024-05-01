@@ -1,6 +1,7 @@
 ﻿@ModelType HartsWebApp.Service
 @Code
     ViewData("Title") = "Delete"
+    Dim db As ApplicationDbContext
 End Code
 
 <h2>Delete</h2>
@@ -10,13 +11,7 @@ End Code
     <h4>Service</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(Function(model) model.Section)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(Function(model) model.Section)
-        </dd>
+       
         <dt>
             @Html.DisplayNameFor(Function(model) model.Sexuality)
         </dt>

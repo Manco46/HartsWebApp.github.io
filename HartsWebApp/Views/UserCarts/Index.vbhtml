@@ -1,7 +1,7 @@
 ﻿@ModelType IEnumerable(Of HartsWebApp.Service)
 @Code
 
-    ViewData("Title") = "Harts Cart"
+    ViewData("Title") = "My Cart"
 
 End Code
 

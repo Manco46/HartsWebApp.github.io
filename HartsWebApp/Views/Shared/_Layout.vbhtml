@@ -1,5 +1,5 @@
 ﻿@Code
-    ViewData("Title") = "Harts Salon"
+
     Dim db As New ApplicationDbContext
     Dim items = db.ServiceSections.ToList
 End Code
@@ -8,7 +8,7 @@ End Code
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - HARTS BEAUTY SALON</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -36,7 +36,7 @@ End Code
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
 </head>
-<body>
+<body id="realBody">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -64,7 +64,7 @@ End Code
                         <ul class="dropdown-menu">
                             @for Each i In items
                                 @<li>
-                                    @Ajax.ActionLink(i.SectionName, "Index", "Services", New With {.sectionID = i.ID}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "applicationBodyContainer", .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "w3-bar-item w3-button"})
+                                    @Ajax.ActionLink(i.SectionName, "Index", "Services", New With {.sectionID = i.ID}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "realBody", .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "w3-bar-item w3-button"})
                                 </li>
                             Next
                         </ul>
@@ -77,14 +77,14 @@ End Code
             </div>
         </div>
     </div>
-    <div id="applicationBodyContainer" class="container body-content">
+    <div class="container body-content">
 
-        <div >
+        <div id="applicationBodyContainer">
             @RenderBody()
         </div>
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Harts Beauty Services</p>
         </footer>
     </div>
 
