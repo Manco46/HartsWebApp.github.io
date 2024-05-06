@@ -6,6 +6,8 @@
 
 End Code
 
+
+
 <div Class="w3-content w3-diplay-container">
     @For Each item In Model
         @<div Class="container">

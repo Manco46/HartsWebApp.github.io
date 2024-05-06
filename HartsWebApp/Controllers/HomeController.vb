@@ -1,4 +1,5 @@
 ﻿
+
 <RequireHttps>
 Public Class HomeController
     Inherits System.Web.Mvc.Controller
@@ -24,7 +25,7 @@ Public Class HomeController
     End Function
 
     Function About() As ActionResult
-        ViewData("Message") = "Your application description page."
+        ViewData("Message") = "This page describes who we are."
 
         Return View()
     End Function

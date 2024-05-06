@@ -82,7 +82,7 @@ Namespace Controllers
                 .ID = Guid.NewGuid().ToString("D") + "=aPpO" + CStr(rnd.Next(10, 9999)),
                 .AppoDate = appointmentDate,
                 .PreferedTimeOfDay = appointmentPreferedTime,
-                .Fee = CDec(service.Select(Function(f) f.Fee).Count),
+                .Fee = (service.Select(Function(f) f.Fee).Count),
                 .Status = "Payment Required",
                 .appointmentServices = New List(Of AppointmentService)()
             }

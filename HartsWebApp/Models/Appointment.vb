@@ -19,7 +19,7 @@ Public Class Appointment
     Public Property End_Time As String
 
     <Display(Name:="Appointment Fee"), DataType(DataType.Currency)>
-    Public Property Fee As Decimal
+    Public Property Fee As String
 
     <Display(Name:="Employee In Service"), DataType(DataType.Currency), StringLength(20, ErrorMessage:="The employee id cannot be more than 20 characters")>
     Public Property Employee_ID As String

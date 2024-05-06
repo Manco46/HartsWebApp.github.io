@@ -39,9 +39,8 @@ End Code
         </div>
 
         <div Class="form-group">
-            <div Class="col-md-10">
-                @Html.LabelFor(Function(m) m.DateOfBirth, New With {.class = "sr-only"})
-                @Html.EditorFor(Function(m) m.DateOfBirth, New With {.class = "form-control"})
+            <div Class="col-md-10">               
+                @Html.TextBoxFor(Function(m) m.DateOfBirth, New With {.class = "form-control", .type = "date"})
                 @Html.ValidationMessageFor(Function(m) m.DateOfBirth, "", New With {.class = "text-danger"})
             </div>
         </div>

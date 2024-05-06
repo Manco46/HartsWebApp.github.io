@@ -179,31 +179,27 @@ Namespace Controllers
             Return View(userCart)
         End Function
 
-        ' GET: UserCarts/Delete/5
+        ' GET: Services/Delete/5
         Async Function Delete(ByVal id As String) As Task(Of ActionResult)
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
-            Dim userCart As UserCart = Await db.UserCarts.FindAsync(id)
-            If IsNothing(userCart) Then
+            Dim cart As UserCart = Await db.UserCarts.FirstOrDefaultAsync(Function(s) s.ServiceID = id)
+            If IsNothing(cart) Then
                 Return HttpNotFound()
             End If
-
-            db.UserCarts.Remove(userCart)
-            Await db.SaveChangesAsync()
-            Return RedirectToAction("Index")
-
-            Return View(userCart)
+            Return View(cart)
         End Function
 
-
-        ' POST: UserCarts/Delete/5
-        ''<ActionName("Delete")>
+        ' POST: Services/Delete/5
         <HttpPost()>
+        <ActionName("Delete")>
         <ValidateAntiForgeryToken()>
         Async Function DeleteConfirmed(ByVal id As String) As Task(Of ActionResult)
-            Dim userCart As UserCart = Await db.UserCarts.FirstOrDefaultAsync(Function(c) c.UserID = User.Identity.GetUserId And c.ServiceID = id)
-
+            Dim cart As UserCart = Await db.UserCarts.FirstOrDefaultAsync(Function(s) s.ServiceID = id)
+            db.UserCarts.Remove(cart)
+            Await db.SaveChangesAsync()
+            Return RedirectToAction("Index")
         End Function
 
         Protected Overrides Sub Dispose(ByVal disposing As Boolean)

@@ -28,7 +28,7 @@ End Code
           
             <hr />
 
-            <h4 class="alert-info">Payment Reference: @item.ID <br /> Total Amount: @item.Fee.ToString("C")</h4>
+            <h4 class="alert-info">Payment Reference: @item.ID <br /> Total Amount: @item.Fee ZAR/RANDS</h4>
             
           
             @If Not item.Status = "Payment confirmation, pending..." Then
