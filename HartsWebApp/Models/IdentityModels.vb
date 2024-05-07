@@ -28,12 +28,14 @@ End Class
 Public Class ApplicationDbContext
     Inherits IdentityDbContext(Of ApplicationUser)
 
-    Public Property Appointments As System.Data.Entity.DbSet(Of Appointment)
-    Public Property Services As System.Data.Entity.DbSet(Of Service)
-    Public Property UserCarts As System.Data.Entity.DbSet(Of UserCart)
-    Public Property ServiceSections As System.Data.Entity.DbSet(Of ServiceSection)
-    Public Property AppointmentServices As System.Data.Entity.DbSet(Of AppointmentService)
+    Public Property Appointments As DbSet(Of Appointment)
+    Public Property Services As DbSet(Of Service)
+    Public Property UserCarts As DbSet(Of UserCart)
+    Public Property ServiceSections As DbSet(Of ServiceSection)
+    Public Property AppointmentServices As DbSet(Of AppointmentService)
+    Public Property About As DbSet(Of About)
 
+    Public Property ContactDetails As DbSet(Of ContactDetails)
 
     Public Sub New()
         MyBase.New("DefaultConnection", throwIfV1Schema:=False)

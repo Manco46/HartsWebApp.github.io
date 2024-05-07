@@ -25,13 +25,14 @@ Public Class HomeController
     End Function
 
     Function About() As ActionResult
-        ViewData("Message") = "This page describes who we are."
-
-        Return View()
+        Return View(db.About.FirstOrDefault)
     End Function
+
+
 
     Function Contact() As ActionResult
         ViewData("Message") = "Your contact page."
+
 
         Return View()
     End Function

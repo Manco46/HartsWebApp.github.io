@@ -21,14 +21,14 @@ Public Class EmailService
 
         Dim smtpWebMail As New SmtpClient
 
-        smtpWebMail.Host = "smtp.gmail.com" 'ConfigurationManager.AppSettings.Get("smtpHost")
-        smtpWebMail.Port = "465" 'ConfigurationManager.AppSettings.Get("smtpHost")q
+        smtpWebMail.Host = "smtp.google.com" 'ConfigurationManager.AppSettings.Get("smtpHost")
+        smtpWebMail.Port = "25" 'ConfigurationManager.AppSettings.Get("smtpHost")q
         smtpWebMail.EnableSsl = True
         smtpWebMail.UseDefaultCredentials = True 'but false for production use
 
         Dim emailCredentials As New NetworkCredential
 
-        emailCredentials.UserName = "wojichulumanco@gmail.com" 'ConfigurationManager.AppSettings.Get("smtpHost")
+        emailCredentials.UserName = "" 'ConfigurationManager.AppSettings.Get("smtpHost")
         emailCredentials.Password = "" 'ConfigurationManager.AppSettings.Get("smtpHost")
 
         smtpWebMail.Credentials = emailCredentials

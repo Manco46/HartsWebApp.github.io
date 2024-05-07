@@ -200,6 +200,7 @@
     <Compile Include="App_Start\IdentityConfig.vb" />
     <Compile Include="App_Start\RouteConfig.vb" />
     <Compile Include="App_Start\Startup.Auth.vb" />
+    <Compile Include="Controllers\AboutsController.vb" />
     <Compile Include="Controllers\AccountController.vb" />
     <Compile Include="Controllers\AppointmentsController.vb" />
     <Compile Include="Controllers\AppointmentServicesController.vb" />
@@ -277,7 +278,20 @@
       <DependentUpon>202405061611217_UpdateFeeAppointmentDatatype.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202405061611217_UpdateFeeAppointmentDatatype.vb" />
+    <Compile Include="Migrations\202405071542507_ClientUXaboutInstaContact.Designer.vb">
+      <DependentUpon>202405071542507_ClientUXaboutInstaContact.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202405071542507_ClientUXaboutInstaContact.vb" />
+    <Compile Include="Migrations\202405071817500_UXaboutTableEdit.Designer.vb">
+      <DependentUpon>202405071817500_UXaboutTableEdit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202405071817500_UXaboutTableEdit.vb" />
+    <Compile Include="Migrations\202405071919211_InsertDataTypesToAboutTable.Designer.vb">
+      <DependentUpon>202405071919211_InsertDataTypesToAboutTable.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202405071919211_InsertDataTypesToAboutTable.vb" />
     <Compile Include="Migrations\Configuration.vb" />
+    <Compile Include="Models\About.vb" />
     <Compile Include="Models\AccountViewModels.vb" />
     <Compile Include="Models\Appointment.vb" />
     <Compile Include="Models\AppointmentService.vb" />
@@ -357,6 +371,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202405061611217_UpdateFeeAppointmentDatatype.resx">
       <DependentUpon>202405061611217_UpdateFeeAppointmentDatatype.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405071542507_ClientUXaboutInstaContact.resx">
+      <DependentUpon>202405071542507_ClientUXaboutInstaContact.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405071817500_UXaboutTableEdit.resx">
+      <DependentUpon>202405071817500_UXaboutTableEdit.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405071919211_InsertDataTypesToAboutTable.resx">
+      <DependentUpon>202405071919211_InsertDataTypesToAboutTable.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -441,7 +464,6 @@
     <Content Include="Views\Services\Edit.vbhtml" />
     <Content Include="Views\Services\Index.vbhtml" />
     <Content Include="Views\Role\Create.vbhtml" />
-    <Content Include="Views\Appointments\_HairSection.vbhtml" />
     <Content Include="Views\UserCarts\Create.vbhtml" />
     <Content Include="Views\UserCarts\Delete.vbhtml" />
     <Content Include="Views\UserCarts\Details.vbhtml" />
@@ -463,6 +485,7 @@
     <Content Include="Views\AppointmentServices\Details.vbhtml" />
     <Content Include="Views\AppointmentServices\Edit.vbhtml" />
     <Content Include="Views\AppointmentServices\Index.vbhtml" />
+    <Content Include="Views\Abouts\Edit.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
