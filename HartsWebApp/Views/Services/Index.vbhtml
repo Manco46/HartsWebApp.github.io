@@ -5,28 +5,24 @@
     Dim parCatergory As String = ""
 End Code
 <br />
-
 @If User.IsInRole("ADMIN") Then
     @Ajax.ActionLink("Create A New Service", "Create", "Services", "", New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "applicationBodyContainer", .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "glyphicon glyphicon-pencil"})
 
 End If
-
 <div>
-    @Html.DropDownList("genderFilter", New SelectList(ViewBag.lstGender), "SELECT A GENDER")
-    @Html.DropDownList("catergory", New SelectList(ViewBag.lstCategory), "SELECT A CATEGORY")
-    <br />
-    <a id="btnFilter" class="btn btn-primary">FILTER</a>
-  
+    @Html.DropDownList("genderFilter", New SelectList(ViewBag.lstGender), "SELECT A GENDER", htmlAttributes:=New With {.class = "form-control", .style = "color:#000000;"})
+    @Html.DropDownList("catergory", New SelectList(ViewBag.lstCategory), "SELECT A CATEGORY", htmlAttributes:=New With {.Class = "form-control", .style = "color:#000000;"})  
+    <a id="btnFilter" class="btn btn-primary">FILTER</a>  
 </div>
 
-<div class="">@ViewBag.ErrorMessage </div>
+<h2 class="alert-danger" style="color:#000000;">@ViewBag.ErrorMessage </h2>
 
 <div id="serviceBoxContainer" class="row">
     @For Each item In Model
         @<div class="col-md-4">
             <div class="thumbnail" for="ServiceID-@item.SectionID">
                
-                <img class="img-responsive img-rounded" src="" alt="@item.Type - image not available" />
+                <img class="img-responsive img-rounded" src="@item.Picture" alt="@item.Type - image not available" style="width:400px;height:250px;" />
                 <div class="caption">
                     <h3>@item.Type</h3>
                     <h5>@item.Category</h5>

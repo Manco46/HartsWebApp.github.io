@@ -183,7 +183,7 @@ Namespace Controllers
 
                 If Await db.UserCarts.AnyAsync(Function(ca) ca.ServiceID = VALUE) Then
                     Call Dispose(True)
-                    Return RedirectToAction("Index", "Services", New With {.sectionID = sectionID, .errorMessage = "The Item You Selected Already Exist In Your Cart Records"})
+                    Return RedirectToAction("Index", "Services", New With {.sectionID = sectionID, .errorMessage = "The Item You Selected Already Exist In Your Cart!"})
 
                 Else
 
