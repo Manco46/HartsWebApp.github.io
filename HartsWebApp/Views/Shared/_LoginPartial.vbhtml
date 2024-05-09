@@ -22,19 +22,29 @@
              </li>
 
             @If User.IsInRole("ADMIN") Then
-                @<li>
-                    <a href="@Url.Action("Index", "Services")">Services</a>
-                </li>
 
                 @<li>
-                    <a href="@Url.Action("Index", "ServiceSections")">Service Sections</a>
+                     <a class="dropdown-toggle" data-toggle="dropdown">Services & Accounts <span class="caret"></span></a>
+                     <ul Class="dropdown-menu">                         
+                         <li>
+                             <a href="@Url.Action("Index", "Services")">Services</a>
+                         </li>
+                         <li>
+                             <a href="@Url.Action("Index", "ServiceSections")">Service Sections</a>
+                         </li>
+                         
+                         <li>
+                             <a href="@Url.Action("Index", "Account")">Employees</a>
+                         </li>
+                         
+                         <li>
+                             <a href="@Url.Action("Index", "Role")">Roles</a>
+                         </li>
+                     </ul>
+                    
                 </li>
-                 @<li>
-                    <a href="@Url.Action("Index", "Account")">Employees</a>
-                </li>
-                @<li>
-                    <a href="@Url.Action("Index", "Role")">Roles</a>
-                </li>
+
+
             End If    
 
             <li>

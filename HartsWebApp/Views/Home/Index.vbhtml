@@ -6,12 +6,10 @@
 
 End Code
 
-
-
-<div Class="w3-content w3-diplay-container">
+<div Class="list-group">
     @For Each item In Model
-        @<div Class="container">
-            <h2> @item.SectionName  </h2>
+        @<div Class="list-group-item">
+             <h2 class="text-center" style=" background-color:#acacac; color:#ffffff;"> @item.SectionName.ToUpper SECTION</h2>
             <div id="myCarousel-@item.SectionName" Class="carousel slide" data-ride="carousel">
                 @Html.Partial("_HomeView", db.Services.Where(Function(s) s.SectionID = item.ID).ToList)
                 <!-- Left and right controls -->
@@ -26,30 +24,7 @@ End Code
             </div>
         </div>
     Next
-
-
-
 </div>
 
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+

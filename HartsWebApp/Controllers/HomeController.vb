@@ -31,9 +31,6 @@ Public Class HomeController
 
 
     Function Contact() As ActionResult
-        ViewData("Message") = "Your contact page."
-
-
-        Return View()
+        Return View(db.ContactDetails.FirstOrDefault)
     End Function
 End Class

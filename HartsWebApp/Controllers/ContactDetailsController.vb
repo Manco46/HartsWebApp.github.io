@@ -10,42 +10,41 @@ Imports System.Web.Mvc
 Imports HartsWebApp
 
 Namespace Controllers
-    Public Class AboutsController
+    Public Class ContactDetailsController
         Inherits System.Web.Mvc.Controller
 
         Private db As New ApplicationDbContext
 
-        ' GET: Abouts/Edit/5
+        ' GET: ContactDetails/Edit/5
         Async Function Edit(ByVal id As String) As Task(Of ActionResult)
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
-            Dim about As About = Await db.About.FindAsync(id)
-            If IsNothing(about) Then
+            Dim contactDetails As ContactDetails = Await db.ContactDetails.FindAsync(id)
+            If IsNothing(contactDetails) Then
                 Call Dispose(True)
                 Return HttpNotFound()
             End If
             Call Dispose(True)
-            Return View(about)
+            Return View(contactDetails)
         End Function
 
-        ' POST: Abouts/Edit/5
+        ' POST: ContactDetails/Edit/5
         'To protect from overposting attacks, enable the specific properties you want to bind to, for 
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
-        Async Function Edit(<Bind(Include:="AboutInformation,AboutAdditionalInformation,EmbedLinkForPost,EmbedLinkForPost2,EmbedLinkForPost3,EmbedLinkForPost4")> ByVal about As About) As Task(Of ActionResult)
-            about.ID = 1
-            If ModelState.IsValid Then
+        Async Function Edit(<Bind(Include:="ID,Address,HelpDeskEmail,HelpDeskNumber,ComplaintsEmail")> ByVal contactDetails As ContactDetails) As Task(Of ActionResult)
 
-                db.Entry(about).State = EntityState.Modified
+            If ModelState.IsValid Then
+                db.Entry(contactDetails).State = EntityState.Modified
                 Await db.SaveChangesAsync()
                 Call Dispose(True)
-                Return RedirectToAction("About", "Home")
+                Return RedirectToAction("Contact", "Home")
             End If
-            Return View(about)
+            Call Dispose(True)
+            Return View(contactDetails)
         End Function
-
 
         Protected Overrides Sub Dispose(ByVal disposing As Boolean)
             If (disposing) Then

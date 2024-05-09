@@ -15,7 +15,9 @@ End Code
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+           <link rel="stylesheet" href="https://w3schools.com/w3css/4/w3.css">
+    <script src="https://w3schools.com/lib/w3.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     -->
 
     <script src="~/Scripts/jquery-3.4.1.js"></script>
@@ -25,9 +27,6 @@ End Code
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="https://w3schools.com/w3css/4/w3.css">
-    <script src="https://w3schools.com/lib/w3.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="~/Scripts/jquery.form.js"></script>
     <script src="~/Scripts/jquery.form.min.js"></script>
@@ -56,7 +55,7 @@ End Code
             <div id="collapseNav" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
 
-                    <li class="dropdown">
+                    <li class="dropdown">                       
                         <a class="dropdown-toggle" data-toggle="dropdown">
                             Our Service
                             <span class="caret"></span>
@@ -71,7 +70,7 @@ End Code
                     </li>
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About Us", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -84,7 +83,7 @@ End Code
         </div>
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Harts Beauty Services</p>
+            <p class="text-center">&copy; @DateTime.Now.Year - Harts Beauty Services</p>
         </footer>
     </div>
 

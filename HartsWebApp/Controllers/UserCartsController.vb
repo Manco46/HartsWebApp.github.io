@@ -64,55 +64,20 @@ Namespace Controllers
             ViewbagIntialisation()
 
             Dim userid As String = User.Identity.GetUserId
-                Dim filterUser = db.UserCarts.Where(Function(c) c.UserID = userid)
-                'fix mistake must be id not name
-                Dim groupQuery = filterUser.GroupJoin(db.Services,
+            Dim filterUser = db.UserCarts.Where(Function(c) c.UserID = userid)
+            'fix mistake must be id not name
+            Dim groupQuery = filterUser.GroupJoin(db.Services,
                                                       Function(c) c.ServiceID,
                                                       Function(s) s.ID,
                                                       Function(c, services) New With {
                                                         .UserCart = c,
                                                         .Service = services
                                                        })
-                Dim service = Await groupQuery.SelectMany(Function(g) g.Service).ToListAsync
+            Dim service = Await groupQuery.SelectMany(Function(g) g.Service).ToListAsync
 
-
+            Call Dispose(True)
             Return View(service)
         End Function
-
-
-
-        ' GET: UserCarts/AddService
-        Function AddService(ByVal serviceID As String) As ActionResult
-
-
-            'lstServices.Add(serviceID)
-            'ViewBag.serviceIDs = lstServices
-
-            'Return Json(ViewBag.serviceIDs, JsonRequestBehavior.AllowGet)
-
-            Dim listOfProductIds As New List(Of String)
-
-            If Request.Cookies("CheckoutProducts") IsNot Nothing Then
-                Dim existingCookies As HttpCookie = Request.Cookies("CheckoutProducts")
-                Dim existingServiceIds As String = existingCookies.Value
-                listOfProductIds = JsonConvert.DeserializeObject(Of List(Of String))(existingServiceIds)
-            End If
-
-
-            listOfProductIds.Add(serviceID)
-
-            Dim jsonServiceIds As String = JsonConvert.SerializeObject(listOfProductIds)
-
-            Dim checkOutCookie As New HttpCookie("CheckoutProducts", jsonServiceIds)
-
-            Response.Cookies.Add(checkOutCookie)
-
-            Return Json(jsonServiceIds, JsonRequestBehavior.AllowGet)
-
-
-        End Function
-
-
 
 
         Async Function GetCartSectionItems() As Task(Of PartialViewResult)
@@ -129,9 +94,10 @@ Namespace Controllers
                                                         .Service = services
                                                        })
                 Dim service = Await groupQuery.SelectMany(Function(g) g.Service).ToListAsync
-
+                Call Dispose(True)
                 Return PartialView("GetCartSectionItems", service)
             End If
+            Call Dispose(True)
             Return PartialView("GetCartSectionItems")
 
         End Function
@@ -143,8 +109,10 @@ Namespace Controllers
             End If
             Dim userCart As UserCart = Await db.UserCarts.FindAsync(id)
             If IsNothing(userCart) Then
+                Call Dispose(True)
                 Return HttpNotFound()
             End If
+            Call Dispose(True)
             Return View(userCart)
         End Function
 
@@ -158,9 +126,11 @@ Namespace Controllers
             End If
             Dim userCart As UserCart = Await db.UserCarts.FindAsync(id)
             If IsNothing(userCart) Then
+                Call Dispose(True)
                 Return HttpNotFound()
             End If
             ViewBag.UserID = New SelectList(db.Users, "Id", "FirstName", userCart.UserID)
+            Call Dispose(True)
             Return View(userCart)
         End Function
 
@@ -173,9 +143,11 @@ Namespace Controllers
             If ModelState.IsValid Then
                 db.Entry(userCart).State = EntityState.Modified
                 Await db.SaveChangesAsync()
+                Call Dispose(True)
                 Return RedirectToAction("Index")
             End If
             ViewBag.UserID = New SelectList(db.Users, "Id", "FirstName", userCart.UserID)
+            Call Dispose(True)
             Return View(userCart)
         End Function
 
@@ -186,8 +158,10 @@ Namespace Controllers
             End If
             Dim cart As UserCart = Await db.UserCarts.FirstOrDefaultAsync(Function(s) s.ServiceID = id)
             If IsNothing(cart) Then
+                Call Dispose(True)
                 Return HttpNotFound()
             End If
+            Call Dispose(True)
             Return View(cart)
         End Function
 
@@ -199,21 +173,16 @@ Namespace Controllers
             Dim cart As UserCart = Await db.UserCarts.FirstOrDefaultAsync(Function(s) s.ServiceID = id)
             db.UserCarts.Remove(cart)
             Await db.SaveChangesAsync()
+            Call Dispose(True)
             Return RedirectToAction("Index")
         End Function
 
-        Protected Overrides Sub Dispose(ByVal disposing As Boolean)
-            If (disposing) Then
-                db.Dispose()
-            End If
-            MyBase.Dispose(disposing)
-        End Sub
-        Public Async Function NewAddToCart(ByVal VALUE As String, ByVal sectionID As String) As Task(Of ActionResult)
+        Public Async Function AddToCart(ByVal VALUE As String, ByVal sectionID As String) As Task(Of ActionResult)
 
             If User.Identity.IsAuthenticated Then
 
                 If Await db.UserCarts.AnyAsync(Function(ca) ca.ServiceID = VALUE) Then
-
+                    Call Dispose(True)
                     Return RedirectToAction("Index", "Services", New With {.sectionID = sectionID, .errorMessage = "The Item You Selected Already Exist In Your Cart Records"})
 
                 Else
@@ -236,6 +205,7 @@ Namespace Controllers
 
                             db.UserCarts.Add(model)
                             Await db.SaveChangesAsync()
+                            Call Dispose(True)
                             Return RedirectToAction("Index", "Services", New With {.sectionID = sectionID})
                         End If
 
@@ -252,6 +222,7 @@ Namespace Controllers
 
                             db.UserCarts.Add(model)
                             Await db.SaveChangesAsync()
+                            Call Dispose(True)
                             Return RedirectToAction("Index", "Services", New With {.sectionID = sectionID})
                         End If
                     End If
@@ -260,74 +231,25 @@ Namespace Controllers
             Return RedirectToAction("Index", "Services", New With {.sectionID = sectionID})
         End Function
 
-        Public Async Function AddToCart(ByVal VALUE As String) As Task(Of JsonResult)
-
-            If User.Identity.IsAuthenticated Then
-
-                If Await db.UserCarts.AnyAsync(Function(ca) ca.ServiceID = VALUE) Then
-
-                    Return Json(New With {.itemExist = "The Item You Selected Already Exist In Your Cart Records"}, JsonRequestBehavior.AllowGet)
-
-                Else
-
-                    Dim userid As String = User.Identity.GetUserId
-                    Dim ID = Guid.NewGuid().ToString("X")
-
-
-                    If Await db.UserCarts.AnyAsync(Function(c) c.UserID = userid) Then
-
-                        Dim cartSearchModel = Await db.UserCarts.Where(Function(u) u.UserID = userid).FirstOrDefaultAsync
-
-                        Dim model As New UserCart() With {
-                            .ID = ID,
-                            .CartID = cartSearchModel.CartID,
-                            .UserID = userid,
-                            .ServiceID = VALUE
-                        }
-                        If ModelState.IsValid Then
-
-                            db.UserCarts.Add(model)
-                            Await db.SaveChangesAsync()
-                            Return Json(New With {.numberOfItemsInCart = Await db.UserCarts.Where(Function(c) c.UserID = userid).CountAsync}, JsonRequestBehavior.AllowGet)
-
-                        End If
-
-                    Else
-                        Dim strCartID = "CART+" + Guid.NewGuid().ToString("P")
-
-                        Dim model As New UserCart() With {
-                            .ID = ID,
-                            .CartID = strCartID,
-                            .UserID = userid,
-                            .ServiceID = VALUE
-                        }
-                        If ModelState.IsValid Then
-
-                            db.UserCarts.Add(model)
-                            Await db.SaveChangesAsync()
-                            Return Json(New With {.numberOfItemsInCart = Await db.UserCarts.Where(Function(c) c.UserID = userid).CountAsync}, JsonRequestBehavior.AllowGet)
-
-                        End If
-                    End If
-                End If
-            Else
-
-                Return Json(New With {.LoginError = Url.Action("AddToCart", "UserCarts", New With {.sectionName = VALUE})}, JsonRequestBehavior.AllowGet)
-            End If
-            Return Json(New With {.unknownError = "Contact The Shop Administrator For This Error"}, JsonRequestBehavior.AllowGet)
-        End Function
-
         Public Async Function CountItemsOnCart() As Task(Of String)
             Dim Count As Integer = 0
             If User.Identity.IsAuthenticated Then
                 Dim userid As String = User.Identity.GetUserId.ToString
                 Count = Await db.UserCarts.Where(Function(c) c.UserID = userid).CountAsync
                 If Not IsNothing(Count) Then
+                    Call Dispose(True)
                     Return Count
                 End If
             End If
+            Call Dispose(True)
             Return Count
         End Function
 
+        Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+            If (disposing) Then
+                db.Dispose()
+            End If
+            MyBase.Dispose(disposing)
+        End Sub
     End Class
 End Namespace

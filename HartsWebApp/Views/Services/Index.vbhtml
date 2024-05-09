@@ -36,7 +36,7 @@ End If
                         @Ajax.ActionLink("Edit", "Edit", "Services", New With {.id = item.ID}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "applicationBodyContainer", .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "glyphicon glyphicon-edit"})@<br />
                         @Ajax.ActionLink("Delete", "Delete", "Services", New With {.id = item.ID}, New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "applicationBodyContainer", .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "glyphicon glyphicon-trash"})
                     End If
-                    @Html.ActionLink("ADD TO CART", "NewAddToCart", "UserCarts", New With {.VALUE = item.ID, .sectionID = item.SectionID}, htmlAttributes:=New With {.class = "btnAddCart btn btn-primary btn-block"})
+                    @Html.ActionLink("ADD TO CART", "AddToCart", "UserCarts", New With {.VALUE = item.ID, .sectionID = item.SectionID}, htmlAttributes:=New With {.class = "btnAddCart btn btn-primary btn-block"})
 
                 </div>
             </div>

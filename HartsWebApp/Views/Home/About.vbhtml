@@ -2,7 +2,6 @@
 @Code
     ViewData("Title") = "About Us"
 End Code
-<hr />
 @If User.IsInRole("ADMIN") Or User.IsInRole("OWNER") Then
 
     @Html.ActionLink("EDIT PAGE", "Edit", "Abouts", New With {.id = Model.ID}, htmlAttributes:=New With {.class = "btn btn-default"})

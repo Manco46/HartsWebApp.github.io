@@ -204,6 +204,7 @@
     <Compile Include="Controllers\AccountController.vb" />
     <Compile Include="Controllers\AppointmentsController.vb" />
     <Compile Include="Controllers\AppointmentServicesController.vb" />
+    <Compile Include="Controllers\ContactDetailsController.vb" />
     <Compile Include="Controllers\ManageController.vb" />
     <Compile Include="Controllers\RoleController.vb" />
     <Compile Include="Controllers\ServicesController.vb" />
@@ -290,6 +291,14 @@
       <DependentUpon>202405071919211_InsertDataTypesToAboutTable.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202405071919211_InsertDataTypesToAboutTable.vb" />
+    <Compile Include="Migrations\202405091449166_entityContactDetailsPropertyDatatypesModify.Designer.vb">
+      <DependentUpon>202405091449166_entityContactDetailsPropertyDatatypesModify.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202405091449166_entityContactDetailsPropertyDatatypesModify.vb" />
+    <Compile Include="Migrations\202405091643497_AAddAttributAllowHTMLinAmoutModel.Designer.vb">
+      <DependentUpon>202405091643497_AAddAttributAllowHTMLinAmoutModel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202405091643497_AAddAttributAllowHTMLinAmoutModel.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\About.vb" />
     <Compile Include="Models\AccountViewModels.vb" />
@@ -380,6 +389,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202405071919211_InsertDataTypesToAboutTable.resx">
       <DependentUpon>202405071919211_InsertDataTypesToAboutTable.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405091449166_entityContactDetailsPropertyDatatypesModify.resx">
+      <DependentUpon>202405091449166_entityContactDetailsPropertyDatatypesModify.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405091643497_AAddAttributAllowHTMLinAmoutModel.resx">
+      <DependentUpon>202405091643497_AAddAttributAllowHTMLinAmoutModel.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -486,6 +501,7 @@
     <Content Include="Views\AppointmentServices\Edit.vbhtml" />
     <Content Include="Views\AppointmentServices\Index.vbhtml" />
     <Content Include="Views\Abouts\Edit.vbhtml" />
+    <Content Include="Views\ContactDetails\Edit.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

@@ -23,6 +23,8 @@ End Code
             <div class="carousel-caption">
                 <h2>@slideItem.Type</h2>
                 <p>@slideItem.Description</p>
+                @Html.ActionLink("Add To Cart", "AddToCart", "UserCarts", New With {.VALUE = slideItem.ID, .sectionID = slideItem.SectionID}, htmlAttributes:=New With {.class = "btn btn-default btn-block"})
+                <br />
             </div>            
         </div>
         slideCounter += 1
