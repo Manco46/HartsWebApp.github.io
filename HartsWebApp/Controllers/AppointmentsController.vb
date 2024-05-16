@@ -23,9 +23,28 @@ Namespace Controllers
         Private db As New ApplicationDbContext
 
         ' GET: Appointments
-        Async Function Index() As Task(Of ActionResult)
-            Dim appointments = db.Appointments.Include(Function(a) a.myUser)
-            Return View(Await appointments.ToListAsync())
+        Async Function Index(ByVal appointmentDate As String, ByVal appointmentStartTime As String) As Task(Of ActionResult)
+
+
+            Dim appointmentsData = From a In db.Appointments
+
+            'Filter Functions
+            If Not String.IsNullOrEmpty(appointmentDate) Then
+                appointmentsData = appointmentsData.Where(Function(d) d.AppoDate = appointmentDate)
+            End If
+            If Not String.IsNullOrEmpty(appointmentStartTime) Then
+                appointmentsData = appointmentsData.Where(Function(d) d.Start_Time = appointmentStartTime)
+            End If
+
+            'Users Role Get
+            If User.IsInRole("ADMIN") Or User.IsInRole("OWNER") Then
+                Return View(Await appointmentsData.ToListAsync)
+            End If
+            If User.IsInRole("EMPLOYEE") Then
+                Return View(Await appointmentsData.Where(Function(e) e.Employee_ID = User.Identity.GetUserId).ToListAsync)
+            End If
+
+            Return View(Await appointmentsData.Include(Function(a) a.myUser).ToListAsync)
         End Function
 
         ' GET: Appointments/Details/5

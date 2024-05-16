@@ -9,10 +9,12 @@ End Code
     @Ajax.ActionLink("Create A New Service", "Create", "Services", "", New AjaxOptions With {.HttpMethod = "GET", .UpdateTargetId = "applicationBodyContainer", .InsertionMode = InsertionMode.Replace}, htmlAttributes:=New With {.class = "glyphicon glyphicon-pencil"})
 
 End If
+<br />
 <div>
-    @Html.DropDownList("genderFilter", New SelectList(ViewBag.lstGender), "SELECT A GENDER", htmlAttributes:=New With {.class = "form-control", .style = "color:#000000;"})
-    @Html.DropDownList("catergory", New SelectList(ViewBag.lstCategory), "SELECT A CATEGORY", htmlAttributes:=New With {.Class = "form-control", .style = "color:#000000;"})  
-    <a id="btnFilter" class="btn btn-primary">FILTER</a>  
+    @Html.DropDownList("genderFilter", New SelectList(ViewBag.lstGender), "SELECT A GENDER", htmlAttributes:=New With {.class = "form-control center-block", .style = "color:#000000;"})
+    @Html.DropDownList("catergory", New SelectList(ViewBag.lstCategory), "SELECT A CATEGORY", htmlAttributes:=New With {.Class = "form-control center-block", .style = "color:#000000;"})  
+    <br />
+    <a id="btnFilter" class="btn btn-primary center-block">FILTER</a>  
 </div>
 
 <h2 class="alert-danger" style="color:#000000;">@ViewBag.ErrorMessage </h2>
