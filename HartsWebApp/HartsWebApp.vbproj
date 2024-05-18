@@ -299,6 +299,10 @@
       <DependentUpon>202405091643497_AAddAttributAllowHTMLinAmoutModel.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202405091643497_AAddAttributAllowHTMLinAmoutModel.vb" />
+    <Compile Include="Migrations\202405182108327_AppointmentModelEdit.Designer.vb">
+      <DependentUpon>202405182108327_AppointmentModelEdit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202405182108327_AppointmentModelEdit.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\About.vb" />
     <Compile Include="Models\AccountViewModels.vb" />
@@ -395,6 +399,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202405091643497_AAddAttributAllowHTMLinAmoutModel.resx">
       <DependentUpon>202405091643497_AAddAttributAllowHTMLinAmoutModel.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202405182108327_AppointmentModelEdit.resx">
+      <DependentUpon>202405182108327_AppointmentModelEdit.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

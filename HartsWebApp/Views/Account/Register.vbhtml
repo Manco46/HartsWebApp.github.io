@@ -5,7 +5,7 @@ End Code
 
 <h2>@ViewBag.Title.</h2>
 
-@Using Html.BeginForm("Register", "Account", FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
+@Using Html.BeginForm("Register", "Account", New With {.dropDownRole = ""}, FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
 
     @Html.AntiForgeryToken()
     @<h4>Create a New account.</h4>
@@ -44,6 +44,15 @@ End Code
                 @Html.ValidationMessageFor(Function(m) m.DateOfBirth, "", New With {.class = "text-danger"})
             </div>
         </div>
+
+        @If User.IsInRole("ADMIN") Or User.IsInRole("OWNER") Then
+            @<div Class="form-group">
+                 <div Class="col-md-10">
+                     @Html.DropDownList("dropDownRole", New SelectList(ViewBag.RoleComboData), "SELECT A ROLE", htmlAttributes:=New With {.class = "form-control"})
+                 </div>
+            </div>
+
+        End If
 
         <div Class="form-group">
             @Html.LabelFor(Function(m) m.PhoneNumber, New With {.class = "sr-only"})

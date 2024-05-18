@@ -30,6 +30,8 @@ End Code
 
     @For Each item In Model
         @<div class="list-group-item">
+            @Html.ActionLink("Edit", "Edit", New With {.id = item.ID})
+
 
             <h3>@item.AppoDate.ToLongDateString</h3>
             <h3>@item.Start_Time - @item.End_Time</h3>

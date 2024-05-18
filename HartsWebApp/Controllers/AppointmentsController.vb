@@ -14,6 +14,7 @@ Imports Microsoft.AspNet.Identity.Owin
 Imports Microsoft.Owin.Security
 Imports Newtonsoft.Json
 
+Imports Microsoft.AspNet.Identity.EntityFramework
 Namespace Controllers
 
     <Authorize>
@@ -21,6 +22,7 @@ Namespace Controllers
         Inherits System.Web.Mvc.Controller
 
         Private db As New ApplicationDbContext
+
 
         ' GET: Appointments
         Async Function Index(ByVal appointmentDate As String, ByVal appointmentStartTime As String) As Task(Of ActionResult)
@@ -138,17 +140,64 @@ Namespace Controllers
             Return Json("Success!, Now Go To Appointments And Make Your Online Payment,", JsonRequestBehavior.AllowGet)
         End Function
 
+        Private Sub ViewBagInitialisation(employeeID As String)
+
+            Dim employeesList = From user In db.Users
+                                Select New With {
+                                    .ID = user.Id,
+                                    .Name = user.FirstName,
+                                    .Surname = user.Surname,
+                                    .Role = (From userRole In user.Roles
+                                             Join role In db.Roles.Where(Function(r) r.Name = "EMPLOYEE")
+                                                 On userRole.UserId Equals role.Id)}
+            employeesList.ToList
+
+            Dim ITEMS As New List(Of SelectListItem)
+
+            For Each item In employeesList
+                If item.ID = employeeID Then
+                    ITEMS.Add(New SelectListItem With {.Text = $"{item.Name} {item.Surname}", .Value = $"{item.ID}", .Selected = True})
+                End If
+                ITEMS.Add(New SelectListItem With {.Text = $"{item.Name} {item.Surname}", .Value = $"{item.ID}"})
+
+            Next
+
+            ViewBag.Employees = ITEMS
+
+
+
+        End Sub
+
         ' GET: Appointments/Edit/5
         Async Function Edit(ByVal id As String) As Task(Of ActionResult)
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
-            Dim appointment As Appointment = Await db.Appointments.FindAsync(id)
+
+
+            Dim appointment = Await db.Appointments.FindAsync(id)
+
+
+
             If IsNothing(appointment) Then
                 Return HttpNotFound()
             End If
+
+            Call ViewBagInitialisation(appointment.Employee_ID)
+
+            Dim viewModel As New AppointmentEditViewModel
+
+
+
+            viewModel.AppoDate = appointment.AppoDate
+            viewModel.Status = appointment.Status
+            viewModel.PreferedTimeOfDay = appointment.PreferedTimeOfDay
+            viewModel.Start_Time = appointment.Start_Time
+            viewModel.End_Time = appointment.End_Time
+            viewModel.Fee = appointment.Fee
+
             ViewBag.UserID = New SelectList(db.Users, "Id", "Email", appointment.UserID)
-            Return View(appointment)
+            Return View(viewModel)
         End Function
 
         ' POST: Appointments/Edit/5
@@ -162,6 +211,9 @@ Namespace Controllers
                 Await db.SaveChangesAsync()
                 Return RedirectToAction("Index")
             End If
+
+            Call ViewBagInitialisation(appointment.Employee_ID)
+
             ViewBag.UserID = New SelectList(db.Users, "Id", "Email", appointment.UserID)
             Return View(appointment)
         End Function
