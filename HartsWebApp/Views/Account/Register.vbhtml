@@ -3,17 +3,17 @@
     ViewBag.Title = "Sign Up"
 End Code
 
-<h2>@ViewBag.Title.</h2>
+<h2 class="">@ViewBag.Title.</h2>
 
-@Using Html.BeginForm("Register", "Account", New With {.dropDownRole = ""}, FormMethod.Post, New With {.class = "form-horizontal", .role = "form"})
+@Using Html.BeginForm("Register", "Account", New With {.dropDownRole = ""}, FormMethod.Post, New With {.class = "form-horizontal center-block", .role = "form"})
 
     @Html.AntiForgeryToken()
     @<h4>Create a New account.</h4>
-    @<hr />
+
     @Html.ValidationSummary("", New With {.class = "text-danger"})
-
+    
     @<div Class="card-body">
-
+        <hr />
         <div Class="form-group">
             <div Class="col-md-10">
                 @Html.LabelFor(Function(m) m.Name, New With {.class = "sr-only"})
@@ -39,17 +39,17 @@ End Code
         </div>
 
         <div Class="form-group">
-            <div Class="col-md-10">               
+            <div Class="col-md-10">
                 @Html.TextBoxFor(Function(m) m.DateOfBirth, New With {.class = "form-control", .type = "date"})
                 @Html.ValidationMessageFor(Function(m) m.DateOfBirth, "", New With {.class = "text-danger"})
             </div>
         </div>
-
+        <hr />
         @If User.IsInRole("ADMIN") Or User.IsInRole("OWNER") Then
             @<div Class="form-group">
-                 <div Class="col-md-10">
-                     @Html.DropDownList("dropDownRole", New SelectList(ViewBag.RoleComboData), "SELECT A ROLE", htmlAttributes:=New With {.class = "form-control"})
-                 </div>
+                <div Class="col-md-10">
+                    @Html.DropDownList("dropDownRole", New SelectList(ViewBag.RoleComboData), "SELECT A ROLE", htmlAttributes:=New With {.class = "form-control"})
+                </div>
             </div>
 
         End If
@@ -85,7 +85,7 @@ End Code
                 @Html.ValidationMessageFor(Function(m) m.ConfirmPassword, "", New With {.class = "text-danger"})
             </div>
         </div>
-
+        <hr style="background-color:black;"/>
         <input type="submit" value="Sign Up" Class="btn btn-lg btn-primary btn-block" />
     </div>
 End Using

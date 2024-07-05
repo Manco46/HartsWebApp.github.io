@@ -23,7 +23,7 @@ Namespace Controllers
 
             Dim catergoryList = From s In db.Services Select s.Category.ToUpper
 
-            ViewBag.lstCategory = catergoryList
+            ViewBag.lstCategory = catergoryList.Distinct
             ViewBag.lstGender = gender
         End Sub
 
